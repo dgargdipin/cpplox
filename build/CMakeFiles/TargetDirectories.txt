@@ -1,0 +1,3 @@
+/home/dgargdipin/dev/lox/build/CMakeFiles/lox.dir
+/home/dgargdipin/dev/lox/build/CMakeFiles/edit_cache.dir
+/home/dgargdipin/dev/lox/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/lox.dir/lox.cpp.o CMakeFiles/lox.dir/main.cpp.o CMakeFiles/lox.dir/scanner.cpp.o CMakeFiles/lox.dir/utils.cpp.o -o lox 
