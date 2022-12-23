@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/dgargdipin/dev/lox/lox.cpp" "CMakeFiles/lox.dir/lox.cpp.o" "gcc" "CMakeFiles/lox.dir/lox.cpp.o.d"
   "/home/dgargdipin/dev/lox/main.cpp" "CMakeFiles/lox.dir/main.cpp.o" "gcc" "CMakeFiles/lox.dir/main.cpp.o.d"
+  "/home/dgargdipin/dev/lox/parser.cpp" "CMakeFiles/lox.dir/parser.cpp.o" "gcc" "CMakeFiles/lox.dir/parser.cpp.o.d"
   "/home/dgargdipin/dev/lox/scanner.cpp" "CMakeFiles/lox.dir/scanner.cpp.o" "gcc" "CMakeFiles/lox.dir/scanner.cpp.o.d"
   "/home/dgargdipin/dev/lox/utils.cpp" "CMakeFiles/lox.dir/utils.cpp.o" "gcc" "CMakeFiles/lox.dir/utils.cpp.o.d"
   )

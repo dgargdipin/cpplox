@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="lox"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lox">
+				<Option output="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/lox" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dgargdipin/dev/lox/."/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 lox"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lox/fast">
+				<Option output="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/lox" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/dgargdipin/dev/lox/."/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 lox/fast"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/dgargdipin/dev/lox/Expr.hpp">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/astprinter.h">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/lox.cpp">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/lox.h">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/main.cpp">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/parser_def.h">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/scanner.cpp">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/scanner.h">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/utils.cpp">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/utils.h">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

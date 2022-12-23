@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/lox.dir/lox.cpp.o.d"
   "CMakeFiles/lox.dir/main.cpp.o"
   "CMakeFiles/lox.dir/main.cpp.o.d"
+  "CMakeFiles/lox.dir/parser.cpp.o"
+  "CMakeFiles/lox.dir/parser.cpp.o.d"
   "CMakeFiles/lox.dir/scanner.cpp.o"
   "CMakeFiles/lox.dir/scanner.cpp.o.d"
   "CMakeFiles/lox.dir/utils.cpp.o"

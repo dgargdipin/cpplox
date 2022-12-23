@@ -9,7 +9,7 @@
 					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
-						"string" : "3.22"
+						"string" : "3.24"
 					},
 					"projectIndex" : 0,
 					"source" : ".",
@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "lox::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-lox-Debug-29ec36ccfa7895cc5e57.json",
+					"jsonFile" : "target-lox-Debug-32c203819808b201e999.json",
 					"name" : "lox",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/dgargdipin/dev/lox/build",
+		"build" : "/home/dgargdipin/dev/lox/cmake-build-debug-wsl",
 		"source" : "/home/dgargdipin/dev/lox"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 3
+		"minor" : 4
 	}
 }

@@ -18,5 +18,10 @@
   "directory": "/home/dgargdipin/dev/lox/build",
   "command": "/usr/bin/g++  -I/home/dgargdipin/dev/lox/. -g -o CMakeFiles/lox.dir/utils.cpp.o -c /home/dgargdipin/dev/lox/utils.cpp",
   "file": "/home/dgargdipin/dev/lox/utils.cpp"
+},
+{
+  "directory": "/home/dgargdipin/dev/lox/build",
+  "command": "/usr/bin/g++  -I/home/dgargdipin/dev/lox/. -g -o CMakeFiles/lox.dir/parser.cpp.o -c /home/dgargdipin/dev/lox/parser.cpp",
+  "file": "/home/dgargdipin/dev/lox/parser.cpp"
 }
 ]
