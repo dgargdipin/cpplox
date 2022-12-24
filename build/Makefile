@@ -177,30 +177,6 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-parser.o: parser.cpp.o
-.PHONY : parser.o
-
-# target to build an object file
-parser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/parser.cpp.o
-.PHONY : parser.cpp.o
-
-parser.i: parser.cpp.i
-.PHONY : parser.i
-
-# target to preprocess a source file
-parser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/parser.cpp.i
-.PHONY : parser.cpp.i
-
-parser.s: parser.cpp.s
-.PHONY : parser.s
-
-# target to generate assembly for a file
-parser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/parser.cpp.s
-.PHONY : parser.cpp.s
-
 scanner.o: scanner.cpp.o
 .PHONY : scanner.o
 
@@ -264,9 +240,6 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... parser.o"
-	@echo "... parser.i"
-	@echo "... parser.s"
 	@echo "... scanner.o"
 	@echo "... scanner.i"
 	@echo "... scanner.s"

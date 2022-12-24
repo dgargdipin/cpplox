@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/lox.dir/RuntimeException.cpp.o"
+  "CMakeFiles/lox.dir/RuntimeException.cpp.o.d"
   "CMakeFiles/lox.dir/lox.cpp.o"
   "CMakeFiles/lox.dir/lox.cpp.o.d"
   "CMakeFiles/lox.dir/main.cpp.o"

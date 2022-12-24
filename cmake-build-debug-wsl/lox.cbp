@@ -87,6 +87,12 @@
 		<Unit filename="/home/dgargdipin/dev/lox/Expr.hpp">
 			<Option target="lox"/>
 		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/RuntimeException.cpp">
+			<Option target="lox"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/RuntimeException.h">
+			<Option target="lox"/>
+		</Unit>
 		<Unit filename="/home/dgargdipin/dev/lox/astprinter.h">
 			<Option target="lox"/>
 		</Unit>

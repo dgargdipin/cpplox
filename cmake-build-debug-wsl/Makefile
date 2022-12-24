@@ -129,6 +129,30 @@ lox/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/build
 .PHONY : lox/fast
 
+RuntimeException.o: RuntimeException.cpp.o
+.PHONY : RuntimeException.o
+
+# target to build an object file
+RuntimeException.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/RuntimeException.cpp.o
+.PHONY : RuntimeException.cpp.o
+
+RuntimeException.i: RuntimeException.cpp.i
+.PHONY : RuntimeException.i
+
+# target to preprocess a source file
+RuntimeException.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/RuntimeException.cpp.i
+.PHONY : RuntimeException.cpp.i
+
+RuntimeException.s: RuntimeException.cpp.s
+.PHONY : RuntimeException.s
+
+# target to generate assembly for a file
+RuntimeException.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lox.dir/build.make CMakeFiles/lox.dir/RuntimeException.cpp.s
+.PHONY : RuntimeException.cpp.s
+
 lox.o: lox.cpp.o
 .PHONY : lox.o
 
@@ -234,6 +258,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... lox"
+	@echo "... RuntimeException.o"
+	@echo "... RuntimeException.i"
+	@echo "... RuntimeException.s"
 	@echo "... lox.o"
 	@echo "... lox.i"
 	@echo "... lox.s"

@@ -1,5 +1,6 @@
 #pragma once
 #include<any>
+#include<memory>
 #include "scanner.h"
 template <typename T>
 class Expr;
@@ -13,10 +14,10 @@ template <typename T>
 class Unary;
 template<typename T> class Visitor{
     public:
-   virtual T visitBinaryExpr(Binary<T>* expr)=0;
-   virtual T visitGroupingExpr(Grouping<T>* expr)=0;
-   virtual T visitLiteralExpr(Literal<T>* expr)=0;
-   virtual T visitUnaryExpr(Unary<T>* expr)=0;
+   virtual T visitBinaryExpr(Binary<T>*expr)=0;
+   virtual T visitGroupingExpr(Grouping<T>*expr)=0;
+   virtual T visitLiteralExpr(Literal<T>*expr)=0;
+   virtual T visitUnaryExpr(Unary<T>*expr)=0;
 };
 template<typename T>
 class Expr{
@@ -26,20 +27,20 @@ class Expr{
 template<typename T>
 class Binary: public Expr<T>{
    public:
-   Expr<T>* left;
+   std::unique_ptr<Expr<T> > left;
    Token oper;
-   Expr<T>* right;
+   std::unique_ptr<Expr<T> > right;
    public:
- Binary(Expr<T>* left,Token oper,Expr<T>* right):left(left),oper(oper),right(right){};
+ Binary(std::unique_ptr<Expr<T> >& left,Token oper,std::unique_ptr<Expr<T> >& right):left(std::move(left)),oper(oper),right(std::move(right)){};
    T accept(Visitor<T> * visitor)
   {       return visitor->visitBinaryExpr(this);
    }};
 template<typename T>
 class Grouping: public Expr<T>{
    public:
-   Expr<T>* expression;
+   std::unique_ptr<Expr<T> > expression;
    public:
- Grouping(Expr<T>* expression):expression(expression){};
+ Grouping(std::unique_ptr<Expr<T> >& expression):expression(std::move(expression)){};
    T accept(Visitor<T> * visitor)
   {       return visitor->visitGroupingExpr(this);
    }};
@@ -56,9 +57,9 @@ template<typename T>
 class Unary: public Expr<T>{
    public:
    Token oper;
-   Expr<T>* right;
+   std::unique_ptr<Expr<T> > right;
    public:
- Unary(Token oper,Expr<T>* right):oper(oper),right(right){};
+ Unary(Token oper,std::unique_ptr<Expr<T> >& right):oper(oper),right(std::move(right)){};
    T accept(Visitor<T> * visitor)
   {       return visitor->visitUnaryExpr(this);
    }};

@@ -53,7 +53,7 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
     vector<string> fields = split(field_list, ", ");
     writer << "template<typename T>\n";
     writer << "class " << class_name << ": public " << basename << "<T>{\n";
-    writer<<"   public:\n";
+    writer << "   public:\n";
     string type, name;
     for (auto field : fields)
     {
@@ -65,7 +65,8 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
         }
         else
         {
-            writer << "   " << type + "<T>* " + name << ";" << std::endl;
+            writer << "   "
+                   << "std::unique_ptr<" + type + "<T> > " + name << ";" << std::endl;
         }
     }
     writer << "   public:\n";
@@ -81,7 +82,7 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
         }
         else
         {
-            writer << type + "<T>* " + name;
+            writer << "std::unique_ptr<" + type + "<T> >& " + name;
         }
         if (i != fields.size() - 1)
             writer << ",";
@@ -90,11 +91,17 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
     for (int i = 0; i < fields.size(); i++)
     {
         auto &field = fields[i];
-        string name;
+        string name, type;
         std::istringstream stream(field);
-        stream >> name >> name;
+        stream >> type >> name;
+        if (templated_type(type))
+        {
+            writer << name << "(" << name << ")";
+        }
+        else{
+            writer << name << "(std::move(" << name << "))";
+        }
         // std::cout<<name<<std::endl;
-        writer << name << "(" << name << ")";
         if (i != fields.size() - 1)
             writer << ",";
     }
@@ -123,7 +130,7 @@ void define_visitor(ofstream &writer, string base_name, vector<string> types)
         std::string class_name;
         std::getline(ss, class_name, ':');
         trim(class_name);
-        writer << "   virtual T visit" + class_name + base_name + '(' + class_name + "<T>* " + lowercase(base_name) + ")=0;\n";
+        writer << "   virtual T visit" + class_name + base_name + '('  + class_name + "<T>*" + lowercase(base_name) + ")=0;\n";
     }
     writer << "};\n";
 }
@@ -158,7 +165,9 @@ void define_ast(string output_dir, string basename, vector<string> types)
         std::cerr << "Error writing to: " << path << std::endl;
         exit(1);
     }
+    writer << "#pragma once\n";
     writer << "#include<any>\n";
+    writer << "#include<memory>\n";
     writer << "#include \"scanner.h\"\n";
     forward_decl_classes(writer, basename, types);
     define_visitor(writer, basename, types);

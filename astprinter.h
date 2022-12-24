@@ -11,7 +11,7 @@ using std::string;
 class ASTPrinter : public Visitor<string>
 {
 public:
-    string print(Expr<string> *expr)
+    string print(std::unique_ptr<Expr<string>> expr)
     {
         return expr->accept(this);
     }
@@ -33,12 +33,12 @@ public:
     }
     string visitBinaryExpr(Binary<string> *expr)
     {
-        return parenthesize(expr->oper.lexeme, {expr->left, expr->right});
+        return parenthesize(expr->oper.lexeme, {expr->left.get(), expr->right.get()});
         // return parenthesize(expr->oper.lexeme, {expr->left, expr->right});
     };
     string visitGroupingExpr(Grouping<string> *expr)
     {
-        return parenthesize("group", {expr->expression});
+        return parenthesize("group", {expr->expression.get()});
     };
     string visitLiteralExpr(Literal<string> *expr)
     {
@@ -59,21 +59,21 @@ public:
         }
         catch (std::bad_any_cast &e)
         {
-            std::cout<<expr->value.type().name();
+            std::cout << expr->value.type().name();
 
             return "nil";
         }
     };
     string visitUnaryExpr(Unary<string> *expr)
     {
-        return parenthesize(expr->oper.lexeme, {expr->right});
+        return parenthesize(expr->oper.lexeme, {expr->right.get()});
     };
 };
 
-//int main()
+// int main()
 //{
-//    auto *expression = new Binary<string>(new Unary<string>(
-//                                              Token(MINUS, "-", get_empty_literal(), 1), new Literal<string>((double)123)),
-//                                          Token(STAR, "*", get_empty_literal(), 1), new Grouping<string>(new Literal<string>(45.67)));
-//    std::cout << ASTPrinter().print(expression);
-//}
+//     auto *expression = new Binary<string>(new Unary<string>(
+//                                               Token(MINUS, "-", get_empty_literal(), 1), new Literal<string>((double)123)),
+//                                           Token(STAR, "*", get_empty_literal(), 1), new Grouping<string>(new Literal<string>(45.67)));
+//     std::cout << ASTPrinter().print(expression);
+// }

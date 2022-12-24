@@ -3,12 +3,13 @@
 #include <fstream>
 #include <string>
 #include "scanner.h"
+#include "RuntimeException.h"
 
 std::string readTextFile(const std::string &path);
 
 
 namespace Lox {
-    extern bool had_error;
+//    extern bool had_error;
 
     void run(std::string input);
 
@@ -21,5 +22,7 @@ namespace Lox {
     void error(int line, std::string message);
 
     void error(Token token, std::string message);
+
+    void runtime_error(RuntimeException& e);
 
 };
