@@ -1,4 +1,5 @@
 #pragma once
+
 #include <any>
 #include <string>
 #include "Expr.hpp"
@@ -15,7 +16,7 @@ namespace Lox {
     class Interpreter : public Visitor<Object> {
 
     public:
-        std::string get_string_repr(Object &obj){
+        std::string get_string_repr(Object &obj) {
             if (instanceof<double>(obj)) {
                 return std::to_string(std::any_cast<double>(obj));
                 //TODO remove ending .0000s in double string repr
@@ -32,15 +33,17 @@ namespace Lox {
             //TODO error handling when getting string repr of object
             assert(false);
         }
-        void interpret(std::unique_ptr<Expr<Object> > expr){
-            try{
-                Object value=evaluate(expr.get());
-                std::cout<<get_string_repr(value)<<std::endl;
+
+        void interpret(std::unique_ptr<Expr<Object> > expr) {
+            try {
+                Object value = evaluate(expr.get());
+                std::cout << get_string_repr(value) << std::endl;
             }
-            catch(RuntimeException& e){
+            catch (RuntimeException &e) {
                 Lox::runtime_error(e);
             }
         }
+
         Object evaluate(Expr<Object> *expr) {
             return expr->accept(this);
         }
@@ -52,19 +55,22 @@ namespace Lox {
         Object visitGroupingExpr(Grouping<Object> *expr) {
             return evaluate(expr->expression.get());
         };
-        void check_number_operand(Token operator_token,Object& operand){
-            if(instanceof<double>(operand))return;
-            throw RuntimeException(operator_token,"Operand must be a number");
+
+        void check_number_operand(Token operator_token, Object &operand) {
+            if (instanceof<double>(operand))return;
+            throw RuntimeException(operator_token, "Operand must be a number");
         }
-        void check_number_operands(Token operator_token,Object& left,Object& right){
-            if(instanceof<double>(left)&& instanceof<double>(right))return;
-            throw RuntimeException(operator_token,"Operands must be numbers");
+
+        void check_number_operands(Token operator_token, Object &left, Object &right) {
+            if (instanceof<double>(left) && instanceof<double>(right))return;
+            throw RuntimeException(operator_token, "Operands must be numbers");
         }
+
         Object visitUnaryExpr(Unary<Object> *expr) {
             Object right = evaluate(expr->right.get());
             switch (expr->oper.type) {
                 case MINUS:
-                    check_number_operand(expr->oper,right);
+                    check_number_operand(expr->oper, right);
                     return -std::any_cast<double>(right);
                 case BANG:
                     return !isTruthy(right);
@@ -75,32 +81,35 @@ namespace Lox {
             Object left = evaluate(expr->left.get());
             Object right = evaluate(expr->right.get());
             switch (expr->oper.type) {
+                case COMMA: {
+                    return right;
+                }
                 case MINUS: {
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) - std::any_cast<double>(right);
                 }
                 case SLASH: {
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) / std::any_cast<double>(right);
                 }
                 case STAR: {
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) * std::any_cast<double>(right);
                 }
                 case GREATER: {
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) > std::any_cast<double>(right);
                 }
                 case GREATER_EQUAL: {
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) >= std::any_cast<double>(right);
                 }
                 case LESS: {
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) < std::any_cast<double>(right);
                 }
                 case LESS_EQUAL:
-                    check_number_operands(expr->oper,left,right);
+                    check_number_operands(expr->oper, left, right);
                     return std::any_cast<double>(left) <= std::any_cast<double>(right);
                 case BANG_EQUAL:
                     return !isEqual(left, right);
@@ -112,13 +121,13 @@ namespace Lox {
                     } else if (instanceof<double>(left) && instanceof<double>(right)) {
                         return std::any_cast<double>(left) + std::any_cast<double>(right);
                     }
-                    throw RuntimeException(expr->oper,"Operands must be two numbers or two strings.");
+                    throw RuntimeException(expr->oper, "Operands must be two numbers or two strings.");
             }
 
             return {};
         }
 
-        bool isTruthy(Object& val) {
+        bool isTruthy(Object &val) {
             if (!val.has_value())
                 return false;
             try {
@@ -130,7 +139,7 @@ namespace Lox {
             return true;
         };
 
-        bool isEqual(Object& val1, Object& val2) {
+        bool isEqual(Object &val1, Object &val2) {
             if (isNull(val1) && isNull(val2))
                 return true;
             if (isNull(val1))
@@ -149,16 +158,16 @@ namespace Lox {
             throw std::runtime_error("Unexpected types");
         }
 
-        bool isNull(Object& obj) {
+        bool isNull(Object &obj) {
             return !obj.has_value();
         }
 
         template<typename T>
-        bool instanceof(Object& obj) {
+        bool instanceof(Object &obj) {
             return obj.type() == typeid(T);
         }
 
-        bool same_type(Object& obj1, Object& obj2) {
+        bool same_type(Object &obj1, Object &obj2) {
             return obj1.type() == obj2.type();
         }
 

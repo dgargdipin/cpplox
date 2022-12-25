@@ -29,6 +29,7 @@ class ParserClass
     unique_ptr<Expr<T>> factor();
     unique_ptr<Expr<T>> unary();
     unique_ptr<Expr<T>> primary();
+    unique_ptr<Expr<T>> comma();
     bool match(std::initializer_list<token_type>);
     bool check(token_type);
     bool isAtEnd();
@@ -48,8 +49,21 @@ public:
 template <typename T>
 unique_ptr<Expr<T>> ParserClass<T>::expression()
 {
-    return equality();
+    return comma();
 }
+
+template <typename T>
+unique_ptr<Expr<T>> ParserClass<T>::comma()
+{
+    auto expr=equality();
+    while(match({COMMA})){
+        Token operator_token=previous();
+        auto right=equality();
+        expr=std::make_unique<Binary<T> >(expr,operator_token,right);
+    }
+    return expr;
+}
+
 
 template <typename T>
 unique_ptr<Expr<T>> ParserClass<T>::equality()
