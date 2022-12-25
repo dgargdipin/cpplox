@@ -69,92 +69,92 @@ include CMakeFiles/lox.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/lox.dir/flags.make
 
-CMakeFiles/lox.dir/lox.cpp.o: CMakeFiles/lox.dir/flags.make
-CMakeFiles/lox.dir/lox.cpp.o: /home/dgargdipin/dev/lox/lox.cpp
-CMakeFiles/lox.dir/lox.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lox.dir/lox.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/lox.cpp.o -MF CMakeFiles/lox.dir/lox.cpp.o.d -o CMakeFiles/lox.dir/lox.cpp.o -c /home/dgargdipin/dev/lox/lox.cpp
+CMakeFiles/lox.dir/src/lox.cpp.o: CMakeFiles/lox.dir/flags.make
+CMakeFiles/lox.dir/src/lox.cpp.o: /home/dgargdipin/dev/lox/src/lox.cpp
+CMakeFiles/lox.dir/src/lox.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/lox.dir/src/lox.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/src/lox.cpp.o -MF CMakeFiles/lox.dir/src/lox.cpp.o.d -o CMakeFiles/lox.dir/src/lox.cpp.o -c /home/dgargdipin/dev/lox/src/lox.cpp
 
-CMakeFiles/lox.dir/lox.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/lox.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/lox.cpp > CMakeFiles/lox.dir/lox.cpp.i
+CMakeFiles/lox.dir/src/lox.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/src/lox.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/src/lox.cpp > CMakeFiles/lox.dir/src/lox.cpp.i
 
-CMakeFiles/lox.dir/lox.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/lox.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/lox.cpp -o CMakeFiles/lox.dir/lox.cpp.s
+CMakeFiles/lox.dir/src/lox.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/src/lox.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/src/lox.cpp -o CMakeFiles/lox.dir/src/lox.cpp.s
 
-CMakeFiles/lox.dir/main.cpp.o: CMakeFiles/lox.dir/flags.make
-CMakeFiles/lox.dir/main.cpp.o: /home/dgargdipin/dev/lox/main.cpp
-CMakeFiles/lox.dir/main.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lox.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/main.cpp.o -MF CMakeFiles/lox.dir/main.cpp.o.d -o CMakeFiles/lox.dir/main.cpp.o -c /home/dgargdipin/dev/lox/main.cpp
+CMakeFiles/lox.dir/src/main.cpp.o: CMakeFiles/lox.dir/flags.make
+CMakeFiles/lox.dir/src/main.cpp.o: /home/dgargdipin/dev/lox/src/main.cpp
+CMakeFiles/lox.dir/src/main.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lox.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/src/main.cpp.o -MF CMakeFiles/lox.dir/src/main.cpp.o.d -o CMakeFiles/lox.dir/src/main.cpp.o -c /home/dgargdipin/dev/lox/src/main.cpp
 
-CMakeFiles/lox.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/main.cpp > CMakeFiles/lox.dir/main.cpp.i
+CMakeFiles/lox.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/src/main.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/src/main.cpp > CMakeFiles/lox.dir/src/main.cpp.i
 
-CMakeFiles/lox.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/main.cpp -o CMakeFiles/lox.dir/main.cpp.s
+CMakeFiles/lox.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/src/main.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/src/main.cpp -o CMakeFiles/lox.dir/src/main.cpp.s
 
-CMakeFiles/lox.dir/scanner.cpp.o: CMakeFiles/lox.dir/flags.make
-CMakeFiles/lox.dir/scanner.cpp.o: /home/dgargdipin/dev/lox/scanner.cpp
-CMakeFiles/lox.dir/scanner.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lox.dir/scanner.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/scanner.cpp.o -MF CMakeFiles/lox.dir/scanner.cpp.o.d -o CMakeFiles/lox.dir/scanner.cpp.o -c /home/dgargdipin/dev/lox/scanner.cpp
+CMakeFiles/lox.dir/src/RuntimeException.cpp.o: CMakeFiles/lox.dir/flags.make
+CMakeFiles/lox.dir/src/RuntimeException.cpp.o: /home/dgargdipin/dev/lox/src/RuntimeException.cpp
+CMakeFiles/lox.dir/src/RuntimeException.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lox.dir/src/RuntimeException.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/src/RuntimeException.cpp.o -MF CMakeFiles/lox.dir/src/RuntimeException.cpp.o.d -o CMakeFiles/lox.dir/src/RuntimeException.cpp.o -c /home/dgargdipin/dev/lox/src/RuntimeException.cpp
 
-CMakeFiles/lox.dir/scanner.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/scanner.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/scanner.cpp > CMakeFiles/lox.dir/scanner.cpp.i
+CMakeFiles/lox.dir/src/RuntimeException.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/src/RuntimeException.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/src/RuntimeException.cpp > CMakeFiles/lox.dir/src/RuntimeException.cpp.i
 
-CMakeFiles/lox.dir/scanner.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/scanner.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/scanner.cpp -o CMakeFiles/lox.dir/scanner.cpp.s
+CMakeFiles/lox.dir/src/RuntimeException.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/src/RuntimeException.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/src/RuntimeException.cpp -o CMakeFiles/lox.dir/src/RuntimeException.cpp.s
 
-CMakeFiles/lox.dir/utils.cpp.o: CMakeFiles/lox.dir/flags.make
-CMakeFiles/lox.dir/utils.cpp.o: /home/dgargdipin/dev/lox/utils.cpp
-CMakeFiles/lox.dir/utils.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lox.dir/utils.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/utils.cpp.o -MF CMakeFiles/lox.dir/utils.cpp.o.d -o CMakeFiles/lox.dir/utils.cpp.o -c /home/dgargdipin/dev/lox/utils.cpp
+CMakeFiles/lox.dir/src/scanner.cpp.o: CMakeFiles/lox.dir/flags.make
+CMakeFiles/lox.dir/src/scanner.cpp.o: /home/dgargdipin/dev/lox/src/scanner.cpp
+CMakeFiles/lox.dir/src/scanner.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lox.dir/src/scanner.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/src/scanner.cpp.o -MF CMakeFiles/lox.dir/src/scanner.cpp.o.d -o CMakeFiles/lox.dir/src/scanner.cpp.o -c /home/dgargdipin/dev/lox/src/scanner.cpp
 
-CMakeFiles/lox.dir/utils.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/utils.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/utils.cpp > CMakeFiles/lox.dir/utils.cpp.i
+CMakeFiles/lox.dir/src/scanner.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/src/scanner.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/src/scanner.cpp > CMakeFiles/lox.dir/src/scanner.cpp.i
 
-CMakeFiles/lox.dir/utils.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/utils.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/utils.cpp -o CMakeFiles/lox.dir/utils.cpp.s
+CMakeFiles/lox.dir/src/scanner.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/src/scanner.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/src/scanner.cpp -o CMakeFiles/lox.dir/src/scanner.cpp.s
 
-CMakeFiles/lox.dir/RuntimeException.cpp.o: CMakeFiles/lox.dir/flags.make
-CMakeFiles/lox.dir/RuntimeException.cpp.o: /home/dgargdipin/dev/lox/RuntimeException.cpp
-CMakeFiles/lox.dir/RuntimeException.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lox.dir/RuntimeException.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/RuntimeException.cpp.o -MF CMakeFiles/lox.dir/RuntimeException.cpp.o.d -o CMakeFiles/lox.dir/RuntimeException.cpp.o -c /home/dgargdipin/dev/lox/RuntimeException.cpp
+CMakeFiles/lox.dir/src/utils.cpp.o: CMakeFiles/lox.dir/flags.make
+CMakeFiles/lox.dir/src/utils.cpp.o: /home/dgargdipin/dev/lox/src/utils.cpp
+CMakeFiles/lox.dir/src/utils.cpp.o: CMakeFiles/lox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/lox.dir/src/utils.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/lox.dir/src/utils.cpp.o -MF CMakeFiles/lox.dir/src/utils.cpp.o.d -o CMakeFiles/lox.dir/src/utils.cpp.o -c /home/dgargdipin/dev/lox/src/utils.cpp
 
-CMakeFiles/lox.dir/RuntimeException.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/RuntimeException.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/RuntimeException.cpp > CMakeFiles/lox.dir/RuntimeException.cpp.i
+CMakeFiles/lox.dir/src/utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lox.dir/src/utils.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/src/utils.cpp > CMakeFiles/lox.dir/src/utils.cpp.i
 
-CMakeFiles/lox.dir/RuntimeException.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/RuntimeException.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/RuntimeException.cpp -o CMakeFiles/lox.dir/RuntimeException.cpp.s
+CMakeFiles/lox.dir/src/utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lox.dir/src/utils.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/src/utils.cpp -o CMakeFiles/lox.dir/src/utils.cpp.s
 
 # Object files for target lox
 lox_OBJECTS = \
-"CMakeFiles/lox.dir/lox.cpp.o" \
-"CMakeFiles/lox.dir/main.cpp.o" \
-"CMakeFiles/lox.dir/scanner.cpp.o" \
-"CMakeFiles/lox.dir/utils.cpp.o" \
-"CMakeFiles/lox.dir/RuntimeException.cpp.o"
+"CMakeFiles/lox.dir/src/lox.cpp.o" \
+"CMakeFiles/lox.dir/src/main.cpp.o" \
+"CMakeFiles/lox.dir/src/RuntimeException.cpp.o" \
+"CMakeFiles/lox.dir/src/scanner.cpp.o" \
+"CMakeFiles/lox.dir/src/utils.cpp.o"
 
 # External object files for target lox
 lox_EXTERNAL_OBJECTS =
 
-lox: CMakeFiles/lox.dir/lox.cpp.o
-lox: CMakeFiles/lox.dir/main.cpp.o
-lox: CMakeFiles/lox.dir/scanner.cpp.o
-lox: CMakeFiles/lox.dir/utils.cpp.o
-lox: CMakeFiles/lox.dir/RuntimeException.cpp.o
+lox: CMakeFiles/lox.dir/src/lox.cpp.o
+lox: CMakeFiles/lox.dir/src/main.cpp.o
+lox: CMakeFiles/lox.dir/src/RuntimeException.cpp.o
+lox: CMakeFiles/lox.dir/src/scanner.cpp.o
+lox: CMakeFiles/lox.dir/src/utils.cpp.o
 lox: CMakeFiles/lox.dir/build.make
 lox: CMakeFiles/lox.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable lox"

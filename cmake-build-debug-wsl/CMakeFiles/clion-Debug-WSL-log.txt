@@ -1,4 +1,6 @@
 C:\Windows\system32\wsl.exe --distribution Ubuntu-22.04 --exec /bin/bash -c "export CMAKE_COLOR_DIAGNOSTICS=ON && export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && /home/dgargdipin/cmake-3.24.3-linux-x86_64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G 'CodeBlocks - Unix Makefiles' -S /home/dgargdipin/dev/lox -B /home/dgargdipin/dev/lox/cmake-build-debug-wsl"
+-- Fetching third party libraries
+-- Fetching Google Test v1.10
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/dgargdipin/dev/lox/cmake-build-debug-wsl
