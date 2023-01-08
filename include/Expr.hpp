@@ -9,6 +9,8 @@ class Binary;
 template <typename T>
 class Grouping;
 template <typename T>
+class Ternary;
+template <typename T>
 class Literal;
 template <typename T>
 class Unary;
@@ -16,6 +18,7 @@ template<typename T> class Visitor{
     public:
    virtual T visitBinaryExpr(Binary<T>*expr)=0;
    virtual T visitGroupingExpr(Grouping<T>*expr)=0;
+   virtual T visitTernaryExpr(Ternary<T>*expr)=0;
    virtual T visitLiteralExpr(Literal<T>*expr)=0;
    virtual T visitUnaryExpr(Unary<T>*expr)=0;
 };
@@ -43,6 +46,17 @@ class Grouping: public Expr<T>{
  Grouping(std::unique_ptr<Expr<T> >& expression):expression(std::move(expression)){};
    T accept(Visitor<T> * visitor)
   {       return visitor->visitGroupingExpr(this);
+   }};
+template<typename T>
+class Ternary: public Expr<T>{
+   public:
+   std::unique_ptr<Expr<T> > condition;
+   std::unique_ptr<Expr<T> > left;
+   std::unique_ptr<Expr<T> > right;
+   public:
+ Ternary(std::unique_ptr<Expr<T> >& condition,std::unique_ptr<Expr<T> >& left,std::unique_ptr<Expr<T> >& right):condition(std::move(condition)),left(std::move(left)),right(std::move(right)){};
+   T accept(Visitor<T> * visitor)
+  {       return visitor->visitTernaryExpr(this);
    }};
 template<typename T>
 class Literal: public Expr<T>{

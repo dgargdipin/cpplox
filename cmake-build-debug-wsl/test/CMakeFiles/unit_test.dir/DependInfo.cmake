@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/dgargdipin/dev/lox/test/ScannerTests..cpp" "test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o" "gcc" "test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o.d"
+  "/home/dgargdipin/dev/lox/test/ParserTests.cpp" "test/CMakeFiles/unit_test.dir/ParserTests.cpp.o" "gcc" "test/CMakeFiles/unit_test.dir/ParserTests.cpp.o.d"
+  "/home/dgargdipin/dev/lox/test/ScannerTests.cpp" "test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o" "gcc" "test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o.d"
   "/home/dgargdipin/dev/lox/src/RuntimeException.cpp" "test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o" "gcc" "test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o.d"
   "/home/dgargdipin/dev/lox/src/lox.cpp" "test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o" "gcc" "test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o.d"
   "/home/dgargdipin/dev/lox/src/scanner.cpp" "test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o" "gcc" "test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o.d"

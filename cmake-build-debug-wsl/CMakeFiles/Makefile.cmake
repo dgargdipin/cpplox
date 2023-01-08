@@ -131,5 +131,6 @@ set(CMAKE_DEPEND_INFO_FILES
   "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake"
   "src/CMakeFiles/lox.dir/DependInfo.cmake"
   "src/CMakeFiles/lox_repl.dir/DependInfo.cmake"
+  "src/CMakeFiles/generate_ast.dir/DependInfo.cmake"
   "test/CMakeFiles/unit_test.dir/DependInfo.cmake"
   )

@@ -185,29 +185,53 @@ unit_test/fast:
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/build
 .PHONY : unit_test/fast
 
-ScannerTests..o: ScannerTests..cpp.o
-.PHONY : ScannerTests..o
+ParserTests.o: ParserTests.cpp.o
+.PHONY : ParserTests.o
 
 # target to build an object file
-ScannerTests..cpp.o:
-	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o
-.PHONY : ScannerTests..cpp.o
+ParserTests.cpp.o:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ParserTests.cpp.o
+.PHONY : ParserTests.cpp.o
 
-ScannerTests..i: ScannerTests..cpp.i
-.PHONY : ScannerTests..i
+ParserTests.i: ParserTests.cpp.i
+.PHONY : ParserTests.i
 
 # target to preprocess a source file
-ScannerTests..cpp.i:
-	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ScannerTests..cpp.i
-.PHONY : ScannerTests..cpp.i
+ParserTests.cpp.i:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ParserTests.cpp.i
+.PHONY : ParserTests.cpp.i
 
-ScannerTests..s: ScannerTests..cpp.s
-.PHONY : ScannerTests..s
+ParserTests.s: ParserTests.cpp.s
+.PHONY : ParserTests.s
 
 # target to generate assembly for a file
-ScannerTests..cpp.s:
-	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ScannerTests..cpp.s
-.PHONY : ScannerTests..cpp.s
+ParserTests.cpp.s:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ParserTests.cpp.s
+.PHONY : ParserTests.cpp.s
+
+ScannerTests.o: ScannerTests.cpp.o
+.PHONY : ScannerTests.o
+
+# target to build an object file
+ScannerTests.cpp.o:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o
+.PHONY : ScannerTests.cpp.o
+
+ScannerTests.i: ScannerTests.cpp.i
+.PHONY : ScannerTests.i
+
+# target to preprocess a source file
+ScannerTests.cpp.i:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ScannerTests.cpp.i
+.PHONY : ScannerTests.cpp.i
+
+ScannerTests.s: ScannerTests.cpp.s
+.PHONY : ScannerTests.s
+
+# target to generate assembly for a file
+ScannerTests.cpp.s:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/ScannerTests.cpp.s
+.PHONY : ScannerTests.cpp.s
 
 __/src/RuntimeException.o: __/src/RuntimeException.cpp.o
 .PHONY : __/src/RuntimeException.o
@@ -343,9 +367,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... unit_test"
-	@echo "... ScannerTests..o"
-	@echo "... ScannerTests..i"
-	@echo "... ScannerTests..s"
+	@echo "... ParserTests.o"
+	@echo "... ParserTests.i"
+	@echo "... ParserTests.s"
+	@echo "... ScannerTests.o"
+	@echo "... ScannerTests.i"
+	@echo "... ScannerTests.s"
 	@echo "... __/src/RuntimeException.o"
 	@echo "... __/src/RuntimeException.i"
 	@echo "... __/src/RuntimeException.s"

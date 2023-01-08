@@ -627,6 +627,19 @@ lox_repl/fast:
 .PHONY : lox_repl/fast
 
 #=============================================================================
+# Target rules for targets named generate_ast
+
+# Build rule for target.
+generate_ast: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 generate_ast
+.PHONY : generate_ast
+
+# fast build rule for target.
+generate_ast/fast:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/build
+.PHONY : generate_ast/fast
+
+#=============================================================================
 # Target rules for targets named unit_test
 
 # Build rule for target.
@@ -681,6 +694,7 @@ help:
 	@echo "... NightlyTest"
 	@echo "... NightlyUpdate"
 	@echo "... check"
+	@echo "... generate_ast"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"

@@ -56,6 +56,15 @@ namespace Lox {
             return evaluate(expr->expression.get());
         };
 
+        Object visitTernaryExpr(Ternary <Object> *expr) {
+            Object condition_object=evaluate(expr->condition.get());
+            bool condition = isTruthy(condition_object);
+            if(condition){
+                return evaluate(expr->left.get());
+            }
+            return evaluate(expr->right.get());
+        }
+
         void check_number_operand(Token operator_token, Object &operand) {
             if (instanceof<double>(operand))return;
             throw RuntimeException(operator_token, "Operand must be a number");

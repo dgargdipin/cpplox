@@ -75,6 +75,7 @@
 /home/dgargdipin/dev/lox/cmake-build-debug-wsl/_deps/googletest-build/googletest/CMakeFiles/install/strip.dir
 /home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/CMakeFiles/lox.dir
 /home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/CMakeFiles/lox_repl.dir
+/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/CMakeFiles/generate_ast.dir
 /home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/CMakeFiles/test.dir
 /home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/CMakeFiles/edit_cache.dir
 /home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/CMakeFiles/rebuild_cache.dir

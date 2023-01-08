@@ -30,6 +30,7 @@ class ParserClass
     unique_ptr<Expr<T>> unary();
     unique_ptr<Expr<T>> primary();
     unique_ptr<Expr<T>> comma();
+    unique_ptr<Expr<T>> ternary();
     bool match(std::initializer_list<token_type>);
     bool check(token_type);
     bool isAtEnd();
@@ -55,16 +56,27 @@ unique_ptr<Expr<T>> ParserClass<T>::expression()
 template <typename T>
 unique_ptr<Expr<T>> ParserClass<T>::comma()
 {
-    auto expr=equality();
+    auto expr=ternary();
     while(match({COMMA})){
         Token operator_token=previous();
-        auto right=equality();
+        auto right=ternary();
         expr=std::make_unique<Binary<T> >(expr,operator_token,right);
     }
     return expr;
 }
-
-
+//TERNARY->EQUALITY|EXPRESSION?EXPRESSION:EXPRESSION?EXPRESSION:EXPRESSION
+template<typename T>
+unique_ptr<Expr<T>> ParserClass<T>::ternary() {
+    auto expr=equality();
+    if(match({QUESTION_MARK})){
+        auto if_match=comma();
+        consume(COLON,"EXPECTED COLON");
+        auto if_not_match=ternary();
+        return std::make_unique<Ternary<T> >(expr,if_match,if_not_match);
+    }
+    return expr;
+}
+//TERNARY->EQUALITY||EXPRESSION?EXPRESSION:EXPRESSION
 template <typename T>
 unique_ptr<Expr<T>> ParserClass<T>::equality()
 {
@@ -166,7 +178,7 @@ unique_ptr<Expr<T>> ParserClass<T>::primary()
     }
     throw error(peek(), "Expect Expression");
 }
-
+//T->T?T:T,T
 template <typename T>
 bool ParserClass<T>::match(std::initializer_list<token_type> types)
 {

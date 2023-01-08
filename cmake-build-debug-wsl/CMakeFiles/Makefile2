@@ -196,6 +196,7 @@ dependencies/googletest/clean: _deps/googletest-build/clean
 # Recursive "all" directory target.
 src/all: src/CMakeFiles/lox.dir/all
 src/all: src/CMakeFiles/lox_repl.dir/all
+src/all: src/CMakeFiles/generate_ast.dir/all
 .PHONY : src/all
 
 # Recursive "preinstall" directory target.
@@ -205,6 +206,7 @@ src/preinstall:
 # Recursive "clean" directory target.
 src/clean: src/CMakeFiles/lox.dir/clean
 src/clean: src/CMakeFiles/lox_repl.dir/clean
+src/clean: src/CMakeFiles/generate_ast.dir/clean
 .PHONY : src/clean
 
 #=============================================================================
@@ -954,7 +956,7 @@ CMakeFiles/ContinuousSubmit.dir/clean:
 # Target rules for target CMakeFiles/check.dir
 
 # All Build rule for target.
-CMakeFiles/check.dir/all: test/CMakeFiles/unit_test.dir/all
+CMakeFiles/check.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/check.dir/build.make CMakeFiles/check.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/check.dir/build.make CMakeFiles/check.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num= "Built target check"
@@ -962,7 +964,7 @@ CMakeFiles/check.dir/all: test/CMakeFiles/unit_test.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/check.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/check.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 0
 .PHONY : CMakeFiles/check.dir/rule
@@ -983,7 +985,7 @@ CMakeFiles/check.dir/clean:
 _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=1,2 "Built target gmock"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=3,4 "Built target gmock"
 .PHONY : _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1010,7 +1012,7 @@ _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/all: _deps/googletes
 _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=3,4 "Built target gmock_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=5,6 "Built target gmock_main"
 .PHONY : _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1036,7 +1038,7 @@ _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/clean:
 _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=5,6 "Built target gtest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=7,8 "Built target gtest"
 .PHONY : _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1062,7 +1064,7 @@ _deps/googletest-build/googletest/CMakeFiles/gtest.dir/clean:
 _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all: _deps/googletest-build/googletest/CMakeFiles/gtest.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=7,8 "Built target gtest_main"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=9,10 "Built target gtest_main"
 .PHONY : _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1088,7 +1090,7 @@ _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/clean:
 src/CMakeFiles/lox.dir/all:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox.dir/build.make src/CMakeFiles/lox.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox.dir/build.make src/CMakeFiles/lox.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=9,10,11,12,13 "Built target lox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=11,12,13,14,15 "Built target lox"
 .PHONY : src/CMakeFiles/lox.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1114,7 +1116,7 @@ src/CMakeFiles/lox.dir/clean:
 src/CMakeFiles/lox_repl.dir/all: src/CMakeFiles/lox.dir/all
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox_repl.dir/build.make src/CMakeFiles/lox_repl.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox_repl.dir/build.make src/CMakeFiles/lox_repl.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=14,15,16,17,18,19 "Built target lox_repl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=16,17,18,19,20,21 "Built target lox_repl"
 .PHONY : src/CMakeFiles/lox_repl.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1134,6 +1136,32 @@ src/CMakeFiles/lox_repl.dir/clean:
 .PHONY : src/CMakeFiles/lox_repl.dir/clean
 
 #=============================================================================
+# Target rules for target src/CMakeFiles/generate_ast.dir
+
+# All Build rule for target.
+src/CMakeFiles/generate_ast.dir/all:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/depend
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=1,2 "Built target generate_ast"
+.PHONY : src/CMakeFiles/generate_ast.dir/all
+
+# Build rule for subdir invocation for target.
+src/CMakeFiles/generate_ast.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/generate_ast.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 0
+.PHONY : src/CMakeFiles/generate_ast.dir/rule
+
+# Convenience name for target.
+generate_ast: src/CMakeFiles/generate_ast.dir/rule
+.PHONY : generate_ast
+
+# clean rule for target.
+src/CMakeFiles/generate_ast.dir/clean:
+	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/clean
+.PHONY : src/CMakeFiles/generate_ast.dir/clean
+
+#=============================================================================
 # Target rules for target test/CMakeFiles/unit_test.dir
 
 # All Build rule for target.
@@ -1141,12 +1169,12 @@ test/CMakeFiles/unit_test.dir/all: _deps/googletest-build/googletest/CMakeFiles/
 test/CMakeFiles/unit_test.dir/all: src/CMakeFiles/lox.dir/all
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/unit_test.dir/build.make test/CMakeFiles/unit_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=20,21,22,23,24,25,26 "Built target unit_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=22,23,24,25,26,27,28,29 "Built target unit_test"
 .PHONY : test/CMakeFiles/unit_test.dir/all
 
 # Build rule for subdir invocation for target.
 test/CMakeFiles/unit_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 14
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 15
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/unit_test.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles 0
 .PHONY : test/CMakeFiles/unit_test.dir/rule

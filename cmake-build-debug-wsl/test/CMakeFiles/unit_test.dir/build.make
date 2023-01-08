@@ -69,24 +69,10 @@ include test/CMakeFiles/unit_test.dir/progress.make
 # Include the compile flags for this target's objects.
 include test/CMakeFiles/unit_test.dir/flags.make
 
-test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o: test/CMakeFiles/unit_test.dir/flags.make
-test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o: /home/dgargdipin/dev/lox/test/ScannerTests..cpp
-test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o"
-	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o -MF CMakeFiles/unit_test.dir/ScannerTests..cpp.o.d -o CMakeFiles/unit_test.dir/ScannerTests..cpp.o -c /home/dgargdipin/dev/lox/test/ScannerTests..cpp
-
-test/CMakeFiles/unit_test.dir/ScannerTests..cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/unit_test.dir/ScannerTests..cpp.i"
-	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/test/ScannerTests..cpp > CMakeFiles/unit_test.dir/ScannerTests..cpp.i
-
-test/CMakeFiles/unit_test.dir/ScannerTests..cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/unit_test.dir/ScannerTests..cpp.s"
-	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/test/ScannerTests..cpp -o CMakeFiles/unit_test.dir/ScannerTests..cpp.s
-
 test/CMakeFiles/unit_test.dir/main.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
 test/CMakeFiles/unit_test.dir/main.cpp.o: /home/dgargdipin/dev/lox/test/main.cpp
 test/CMakeFiles/unit_test.dir/main.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object test/CMakeFiles/unit_test.dir/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object test/CMakeFiles/unit_test.dir/main.cpp.o"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/main.cpp.o -MF CMakeFiles/unit_test.dir/main.cpp.o.d -o CMakeFiles/unit_test.dir/main.cpp.o -c /home/dgargdipin/dev/lox/test/main.cpp
 
 test/CMakeFiles/unit_test.dir/main.cpp.i: cmake_force
@@ -97,10 +83,38 @@ test/CMakeFiles/unit_test.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/unit_test.dir/main.cpp.s"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/test/main.cpp -o CMakeFiles/unit_test.dir/main.cpp.s
 
+test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
+test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o: /home/dgargdipin/dev/lox/test/ScannerTests.cpp
+test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o"
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o -MF CMakeFiles/unit_test.dir/ScannerTests.cpp.o.d -o CMakeFiles/unit_test.dir/ScannerTests.cpp.o -c /home/dgargdipin/dev/lox/test/ScannerTests.cpp
+
+test/CMakeFiles/unit_test.dir/ScannerTests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/unit_test.dir/ScannerTests.cpp.i"
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/test/ScannerTests.cpp > CMakeFiles/unit_test.dir/ScannerTests.cpp.i
+
+test/CMakeFiles/unit_test.dir/ScannerTests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/unit_test.dir/ScannerTests.cpp.s"
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/test/ScannerTests.cpp -o CMakeFiles/unit_test.dir/ScannerTests.cpp.s
+
+test/CMakeFiles/unit_test.dir/ParserTests.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
+test/CMakeFiles/unit_test.dir/ParserTests.cpp.o: /home/dgargdipin/dev/lox/test/ParserTests.cpp
+test/CMakeFiles/unit_test.dir/ParserTests.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object test/CMakeFiles/unit_test.dir/ParserTests.cpp.o"
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/ParserTests.cpp.o -MF CMakeFiles/unit_test.dir/ParserTests.cpp.o.d -o CMakeFiles/unit_test.dir/ParserTests.cpp.o -c /home/dgargdipin/dev/lox/test/ParserTests.cpp
+
+test/CMakeFiles/unit_test.dir/ParserTests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/unit_test.dir/ParserTests.cpp.i"
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/dgargdipin/dev/lox/test/ParserTests.cpp > CMakeFiles/unit_test.dir/ParserTests.cpp.i
+
+test/CMakeFiles/unit_test.dir/ParserTests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/unit_test.dir/ParserTests.cpp.s"
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/dgargdipin/dev/lox/test/ParserTests.cpp -o CMakeFiles/unit_test.dir/ParserTests.cpp.s
+
 test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
 test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o: /home/dgargdipin/dev/lox/src/lox.cpp
 test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o -MF CMakeFiles/unit_test.dir/__/src/lox.cpp.o.d -o CMakeFiles/unit_test.dir/__/src/lox.cpp.o -c /home/dgargdipin/dev/lox/src/lox.cpp
 
 test/CMakeFiles/unit_test.dir/__/src/lox.cpp.i: cmake_force
@@ -114,7 +128,7 @@ test/CMakeFiles/unit_test.dir/__/src/lox.cpp.s: cmake_force
 test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
 test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o: /home/dgargdipin/dev/lox/src/RuntimeException.cpp
 test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o -MF CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o.d -o CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o -c /home/dgargdipin/dev/lox/src/RuntimeException.cpp
 
 test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.i: cmake_force
@@ -128,7 +142,7 @@ test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.s: cmake_force
 test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
 test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o: /home/dgargdipin/dev/lox/src/scanner.cpp
 test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o -MF CMakeFiles/unit_test.dir/__/src/scanner.cpp.o.d -o CMakeFiles/unit_test.dir/__/src/scanner.cpp.o -c /home/dgargdipin/dev/lox/src/scanner.cpp
 
 test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.i: cmake_force
@@ -142,7 +156,7 @@ test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.s: cmake_force
 test/CMakeFiles/unit_test.dir/__/src/utils.cpp.o: test/CMakeFiles/unit_test.dir/flags.make
 test/CMakeFiles/unit_test.dir/__/src/utils.cpp.o: /home/dgargdipin/dev/lox/src/utils.cpp
 test/CMakeFiles/unit_test.dir/__/src/utils.cpp.o: test/CMakeFiles/unit_test.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object test/CMakeFiles/unit_test.dir/__/src/utils.cpp.o"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT test/CMakeFiles/unit_test.dir/__/src/utils.cpp.o -MF CMakeFiles/unit_test.dir/__/src/utils.cpp.o.d -o CMakeFiles/unit_test.dir/__/src/utils.cpp.o -c /home/dgargdipin/dev/lox/src/utils.cpp
 
 test/CMakeFiles/unit_test.dir/__/src/utils.cpp.i: cmake_force
@@ -155,8 +169,9 @@ test/CMakeFiles/unit_test.dir/__/src/utils.cpp.s: cmake_force
 
 # Object files for target unit_test
 unit_test_OBJECTS = \
-"CMakeFiles/unit_test.dir/ScannerTests..cpp.o" \
 "CMakeFiles/unit_test.dir/main.cpp.o" \
+"CMakeFiles/unit_test.dir/ScannerTests.cpp.o" \
+"CMakeFiles/unit_test.dir/ParserTests.cpp.o" \
 "CMakeFiles/unit_test.dir/__/src/lox.cpp.o" \
 "CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o" \
 "CMakeFiles/unit_test.dir/__/src/scanner.cpp.o" \
@@ -165,8 +180,9 @@ unit_test_OBJECTS = \
 # External object files for target unit_test
 unit_test_EXTERNAL_OBJECTS =
 
-test/unit_test: test/CMakeFiles/unit_test.dir/ScannerTests..cpp.o
 test/unit_test: test/CMakeFiles/unit_test.dir/main.cpp.o
+test/unit_test: test/CMakeFiles/unit_test.dir/ScannerTests.cpp.o
+test/unit_test: test/CMakeFiles/unit_test.dir/ParserTests.cpp.o
 test/unit_test: test/CMakeFiles/unit_test.dir/__/src/lox.cpp.o
 test/unit_test: test/CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o
 test/unit_test: test/CMakeFiles/unit_test.dir/__/src/scanner.cpp.o
@@ -175,7 +191,7 @@ test/unit_test: test/CMakeFiles/unit_test.dir/build.make
 test/unit_test: lib/libgtest.a
 test/unit_test: src/liblox.a
 test/unit_test: test/CMakeFiles/unit_test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable unit_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable unit_test"
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/unit_test.dir/link.txt --verbose=$(VERBOSE)
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl/test && /home/dgargdipin/cmake-3.24.3-linux-x86_64/bin/cmake -D TEST_TARGET=unit_test -D TEST_EXECUTABLE=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test/unit_test -D TEST_EXECUTOR= -D TEST_WORKING_DIR=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test -D TEST_EXTRA_ARGS= -D TEST_PROPERTIES= -D TEST_PREFIX= -D TEST_SUFFIX= -D TEST_FILTER= -D NO_PRETTY_TYPES=FALSE -D NO_PRETTY_VALUES=FALSE -D TEST_LIST=unit_test_TESTS -D CTEST_FILE=/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test/unit_test[1]_tests.cmake -D TEST_DISCOVERY_TIMEOUT=5 -D TEST_XML_OUTPUT_DIR= -P /home/dgargdipin/cmake-3.24.3-linux-x86_64/share/cmake-3.24/Modules/GoogleTestAddTests.cmake
 

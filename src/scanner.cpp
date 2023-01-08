@@ -122,6 +122,12 @@ void Scanner::scanToken() {
         case '>':
             addToken(match('=') ? GREATER_EQUAL : GREATER);
             break;
+        case '?':
+            addToken(QUESTION_MARK);
+            break;
+        case ':':
+            addToken(COLON);
+            break;
         case '/': {
             if (match('/')) {
                 while (!isAtEnd() && peek() != '\n')

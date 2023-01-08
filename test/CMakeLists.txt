@@ -1,9 +1,9 @@
-add_executable(unit_test ScannerTests..cpp)
-add_dependencies(check unit_test)
+add_executable(unit_test)
 target_sources(unit_test
         PRIVATE
         main.cpp
-        ScannerTests..cpp
+        ScannerTests.cpp
+        ParserTests.cpp
         )
 set(EXECUTABLE_NAME "unit_test")
 set_target_properties(unit_test PROPERTIES

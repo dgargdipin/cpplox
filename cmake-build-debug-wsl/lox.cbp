@@ -423,6 +423,50 @@
 					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="generate_ast">
+				<Option output="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/generate_ast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 generate_ast"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="generate_ast/fast">
+				<Option output="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/generate_ast" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 generate_ast/fast"/>
+					<CompileFile command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j12 -f &quot;/home/dgargdipin/dev/lox/cmake-build-debug-wsl/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="unit_test">
 				<Option output="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test/unit_test" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test"/>
@@ -491,6 +535,9 @@
 			<Option target="lox_repl"/>
 			<Option target="unit_test"/>
 		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/src/generateast.cpp">
+			<Option target="generate_ast"/>
+		</Unit>
 		<Unit filename="/home/dgargdipin/dev/lox/src/lox.cpp">
 			<Option target="lox"/>
 			<Option target="lox_repl"/>
@@ -509,7 +556,10 @@
 			<Option target="lox_repl"/>
 			<Option target="unit_test"/>
 		</Unit>
-		<Unit filename="/home/dgargdipin/dev/lox/test/ScannerTests..cpp">
+		<Unit filename="/home/dgargdipin/dev/lox/test/ParserTests.cpp">
+			<Option target="unit_test"/>
+		</Unit>
+		<Unit filename="/home/dgargdipin/dev/lox/test/ScannerTests.cpp">
 			<Option target="unit_test"/>
 		</Unit>
 		<Unit filename="/home/dgargdipin/dev/lox/test/main.cpp">

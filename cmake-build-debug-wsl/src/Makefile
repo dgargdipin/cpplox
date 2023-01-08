@@ -199,6 +199,20 @@ lox_repl/fast:
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox_repl.dir/build.make src/CMakeFiles/lox_repl.dir/build
 .PHONY : lox_repl/fast
 
+# Convenience name for target.
+src/CMakeFiles/generate_ast.dir/rule:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/CMakeFiles/generate_ast.dir/rule
+.PHONY : src/CMakeFiles/generate_ast.dir/rule
+
+# Convenience name for target.
+generate_ast: src/CMakeFiles/generate_ast.dir/rule
+.PHONY : generate_ast
+
+# fast build rule for target.
+generate_ast/fast:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/build
+.PHONY : generate_ast/fast
+
 RuntimeException.o: RuntimeException.cpp.o
 .PHONY : RuntimeException.o
 
@@ -225,6 +239,30 @@ RuntimeException.cpp.s:
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox.dir/build.make src/CMakeFiles/lox.dir/RuntimeException.cpp.s
 	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/lox_repl.dir/build.make src/CMakeFiles/lox_repl.dir/RuntimeException.cpp.s
 .PHONY : RuntimeException.cpp.s
+
+generateast.o: generateast.cpp.o
+.PHONY : generateast.o
+
+# target to build an object file
+generateast.cpp.o:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/generateast.cpp.o
+.PHONY : generateast.cpp.o
+
+generateast.i: generateast.cpp.i
+.PHONY : generateast.i
+
+# target to preprocess a source file
+generateast.cpp.i:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/generateast.cpp.i
+.PHONY : generateast.cpp.i
+
+generateast.s: generateast.cpp.s
+.PHONY : generateast.s
+
+# target to generate assembly for a file
+generateast.cpp.s:
+	cd /home/dgargdipin/dev/lox/cmake-build-debug-wsl && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/generate_ast.dir/build.make src/CMakeFiles/generate_ast.dir/generateast.cpp.s
+.PHONY : generateast.cpp.s
 
 lox.o: lox.cpp.o
 .PHONY : lox.o
@@ -344,11 +382,15 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... generate_ast"
 	@echo "... lox"
 	@echo "... lox_repl"
 	@echo "... RuntimeException.o"
 	@echo "... RuntimeException.i"
 	@echo "... RuntimeException.s"
+	@echo "... generateast.o"
+	@echo "... generateast.i"
+	@echo "... generateast.s"
 	@echo "... lox.o"
 	@echo "... lox.i"
 	@echo "... lox.s"

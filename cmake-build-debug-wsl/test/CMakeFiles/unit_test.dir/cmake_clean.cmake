@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/unit_test.dir/ScannerTests..cpp.o"
-  "CMakeFiles/unit_test.dir/ScannerTests..cpp.o.d"
+  "CMakeFiles/unit_test.dir/ParserTests.cpp.o"
+  "CMakeFiles/unit_test.dir/ParserTests.cpp.o.d"
+  "CMakeFiles/unit_test.dir/ScannerTests.cpp.o"
+  "CMakeFiles/unit_test.dir/ScannerTests.cpp.o.d"
   "CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o"
   "CMakeFiles/unit_test.dir/__/src/RuntimeException.cpp.o.d"
   "CMakeFiles/unit_test.dir/__/src/lox.cpp.o"

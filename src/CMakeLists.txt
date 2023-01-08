@@ -29,3 +29,4 @@ target_sources(lox_repl
         )
 
 target_link_libraries(lox_repl PRIVATE lox)
+add_executable(generate_ast generateast.cpp)
