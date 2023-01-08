@@ -43,7 +43,7 @@ vector<string> split(string s, string delimiter) {
 }
 
 bool templated_type(string type) {
-    return type == "Token" || type == "std::any";
+    return type == "Token" || type == "std::any"|| type == "std::string";
 }
 
 void define_type(ofstream &writer, string basename, string class_name, string field_list) {
@@ -174,5 +174,7 @@ int main(int argc, char **argv) {
     string output_dir(argv[1]);
     define_ast(output_dir, "Expr", {"Binary   : Expr left, Token oper, Expr right", "Grouping : Expr expression",
                                     "Ternary: Expr condition, Expr left, Expr right", "Literal  : std::any value",
-                                    "Unary    : Token oper, Expr right"});
+                                    "Unary    : Token oper, Expr right",
+                                    "Nothing: std::string nothing"
+    });
 }

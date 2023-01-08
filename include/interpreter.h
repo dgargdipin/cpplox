@@ -57,12 +57,16 @@ namespace Lox {
         };
 
         Object visitTernaryExpr(Ternary <Object> *expr) {
+            
             Object condition_object=evaluate(expr->condition.get());
             bool condition = isTruthy(condition_object);
             if(condition){
                 return evaluate(expr->left.get());
             }
             return evaluate(expr->right.get());
+        }
+
+        Object visitNothingExpr(Nothing<Object> *expr){
         }
 
         void check_number_operand(Token operator_token, Object &operand) {

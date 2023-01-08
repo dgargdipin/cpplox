@@ -14,6 +14,8 @@ template <typename T>
 class Literal;
 template <typename T>
 class Unary;
+template <typename T>
+class Nothing;
 template<typename T> class Visitor{
     public:
    virtual T visitBinaryExpr(Binary<T>*expr)=0;
@@ -21,6 +23,7 @@ template<typename T> class Visitor{
    virtual T visitTernaryExpr(Ternary<T>*expr)=0;
    virtual T visitLiteralExpr(Literal<T>*expr)=0;
    virtual T visitUnaryExpr(Unary<T>*expr)=0;
+   virtual T visitNothingExpr(Nothing<T>*expr)=0;
 };
 template<typename T>
 class Expr{
@@ -76,4 +79,13 @@ class Unary: public Expr<T>{
  Unary(Token oper,std::unique_ptr<Expr<T> >& right):oper(oper),right(std::move(right)){};
    T accept(Visitor<T> * visitor)
   {       return visitor->visitUnaryExpr(this);
+   }};
+template<typename T>
+class Nothing: public Expr<T>{
+   public:
+   std::string nothing;
+   public:
+ Nothing(std::string nothing):nothing(nothing){};
+   T accept(Visitor<T> * visitor)
+  {       return visitor->visitNothingExpr(this);
    }};
