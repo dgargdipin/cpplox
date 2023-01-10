@@ -13,22 +13,11 @@ namespace Lox {
 
     typedef std::any Object;
 
-class Interpreter : public ValueGetter<Interpreter,Expr*,Object>, public Visitor {
+    class Interpreter : public ValueGetter<Interpreter, Expr *, Object>, public Visitor {
 
     public:
-//    virtual void Visit(Number& n)
-//    {
-//        // Store the return value in the ValueGetter member
-//        Return(n.value);
-//    }
-//
-//    virtual void Visit(Plus& n)
-//    {
-//        // GetValue visits children and returns computed values
-//        Return(GetValue(n.left) + GetValue(n.right));
-//    }
 
-    std::string get_string_repr(Object &obj) {
+        std::string get_string_repr(Object &obj) {
             if (instanceof<double>(obj)) {
                 return std::to_string(std::any_cast<double>(obj));
                 //TODO remove ending .0000s in double string repr
@@ -46,7 +35,7 @@ class Interpreter : public ValueGetter<Interpreter,Expr*,Object>, public Visitor
             assert(false);
         }
 
-        void interpret(std::unique_ptr<Expr > expr) {
+        void interpret(std::unique_ptr<Expr> expr) {
             try {
                 Object value = evaluate(expr.get());
                 std::cout << get_string_repr(value) << std::endl;
@@ -62,23 +51,27 @@ class Interpreter : public ValueGetter<Interpreter,Expr*,Object>, public Visitor
 
         void visit(Literal *expr) {
             Return(expr->value);
+            return;
         };
 
         void visit(Grouping *expr) {
             Return(evaluate(expr->expression.get()));
+            return;
         };
 
         void visit(Ternary *expr) {
-            
-            Object condition_object=evaluate(expr->condition.get());
+
+            Object condition_object = evaluate(expr->condition.get());
             bool condition = isTruthy(condition_object);
-            if(condition){
+            if (condition) {
                 Return(evaluate(expr->left.get()));
+                return;
             }
             Return(evaluate(expr->right.get()));
+            return;
         }
 
-        void visit(Nothing *expr){
+        void visit(Nothing *expr) {
         }
 
         void check_number_operand(Token operator_token, Object &operand) {
@@ -97,8 +90,10 @@ class Interpreter : public ValueGetter<Interpreter,Expr*,Object>, public Visitor
                 case MINUS:
                     check_number_operand(expr->oper, right);
                     Return(-std::any_cast<double>(right));
+                    return;
                 case BANG:
                     Return(!isTruthy(right));
+                    return;
             }
         }
 
@@ -108,48 +103,62 @@ class Interpreter : public ValueGetter<Interpreter,Expr*,Object>, public Visitor
             switch (expr->oper.type) {
                 case COMMA: {
                     Return(right);
+                    return;
                 }
                 case MINUS: {
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) - std::any_cast<double>(right));
+                    return;
                 }
                 case SLASH: {
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) / std::any_cast<double>(right));
+                    return;
                 }
                 case STAR: {
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) * std::any_cast<double>(right));
+                    return;
                 }
                 case GREATER: {
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) > std::any_cast<double>(right));
+                    return;
                 }
                 case GREATER_EQUAL: {
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) >= std::any_cast<double>(right));
+                    return;
                 }
                 case LESS: {
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) < std::any_cast<double>(right));
+                    return;
                 }
                 case LESS_EQUAL:
                     check_number_operands(expr->oper, left, right);
                     Return(std::any_cast<double>(left) <= std::any_cast<double>(right));
+                    return;
                 case BANG_EQUAL:
                     Return(!isEqual(left, right));
+                    return;
                 case EQUAL_EQUAL:
                     Return(isEqual(left, right));
+                    return;
                 case PLUS:
+
                     if (instanceof<std::string>(left) && instanceof<std::string>(right)) {
                         Return(std::any_cast<std::string>(left) + std::any_cast<std::string>(right));
+                        return;
                     } else if (instanceof<double>(left) && instanceof<double>(right)) {
                         Return(std::any_cast<double>(left) + std::any_cast<double>(right));
+                        return;
                     }
                     throw RuntimeException(expr->oper, "Operands must be two numbers or two strings.");
             }
 
             Return({});
+            return;
         }
 
         bool isTruthy(Object &val) {
