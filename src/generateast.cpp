@@ -153,7 +153,7 @@ void define_valuegetter(ofstream &writer){
     public:
         static ResultType evaluate(VisitablePtr n)
         {
-            VisitorImpl vis;
+            static VisitorImpl vis;
             n->accept(vis); // this call fills the return value
             return vis.value;
         }

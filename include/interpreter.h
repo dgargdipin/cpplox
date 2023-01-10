@@ -16,6 +16,9 @@ namespace Lox {
     class Interpreter : public ValueGetter<Interpreter, Expr *, Object>, public Visitor {
 
     public:
+        Interpreter() {
+            std::cout << "Called constructor to interpreter" << std::endl;
+        }
 
         std::string get_string_repr(Object &obj) {
             if (instanceof<double>(obj)) {
