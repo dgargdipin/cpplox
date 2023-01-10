@@ -2,90 +2,90 @@
 #include<any>
 #include<memory>
 #include "scanner.h"
-template <typename T>
 class Expr;
-template <typename T>
 class Binary;
-template <typename T>
 class Grouping;
-template <typename T>
 class Ternary;
-template <typename T>
 class Literal;
-template <typename T>
 class Unary;
-template <typename T>
 class Nothing;
-template<typename T> class Visitor{
+class Visitor{
     public:
-   virtual T visitBinaryExpr(Binary<T>*expr)=0;
-   virtual T visitGroupingExpr(Grouping<T>*expr)=0;
-   virtual T visitTernaryExpr(Ternary<T>*expr)=0;
-   virtual T visitLiteralExpr(Literal<T>*expr)=0;
-   virtual T visitUnaryExpr(Unary<T>*expr)=0;
-   virtual T visitNothingExpr(Nothing<T>*expr)=0;
+   virtual void visit(Binary *expr)=0;
+   virtual void visit(Grouping *expr)=0;
+   virtual void visit(Ternary *expr)=0;
+   virtual void visit(Literal *expr)=0;
+   virtual void visit(Unary *expr)=0;
+   virtual void visit(Nothing *expr)=0;
 };
-template<typename T>
 class Expr{
  public:
-   virtual T accept(Visitor<T>* visitor)=0;
+   virtual void accept(Visitor& visitor)=0;
 };
-template<typename T>
-class Binary: public Expr<T>{
+#define MAKE_VISITABLE virtual void accept(Visitor& vis) override { vis.visit(this);}
+class Binary: public Expr{
    public:
-   std::unique_ptr<Expr<T> > left;
+   std::unique_ptr<Expr > left;
    Token oper;
-   std::unique_ptr<Expr<T> > right;
+   std::unique_ptr<Expr > right;
    public:
- Binary(std::unique_ptr<Expr<T> >& left,Token oper,std::unique_ptr<Expr<T> >& right):left(std::move(left)),oper(oper),right(std::move(right)){};
-   T accept(Visitor<T> * visitor)
-  {       return visitor->visitBinaryExpr(this);
-   }};
-template<typename T>
-class Grouping: public Expr<T>{
+ Binary(std::unique_ptr<Expr >& left,Token oper,std::unique_ptr<Expr >& right):left(std::move(left)),oper(oper),right(std::move(right)){};
+MAKE_VISITABLE
+};
+class Grouping: public Expr{
    public:
-   std::unique_ptr<Expr<T> > expression;
+   std::unique_ptr<Expr > expression;
    public:
- Grouping(std::unique_ptr<Expr<T> >& expression):expression(std::move(expression)){};
-   T accept(Visitor<T> * visitor)
-  {       return visitor->visitGroupingExpr(this);
-   }};
-template<typename T>
-class Ternary: public Expr<T>{
+ Grouping(std::unique_ptr<Expr >& expression):expression(std::move(expression)){};
+MAKE_VISITABLE
+};
+class Ternary: public Expr{
    public:
-   std::unique_ptr<Expr<T> > condition;
-   std::unique_ptr<Expr<T> > left;
-   std::unique_ptr<Expr<T> > right;
+   std::unique_ptr<Expr > condition;
+   std::unique_ptr<Expr > left;
+   std::unique_ptr<Expr > right;
    public:
- Ternary(std::unique_ptr<Expr<T> >& condition,std::unique_ptr<Expr<T> >& left,std::unique_ptr<Expr<T> >& right):condition(std::move(condition)),left(std::move(left)),right(std::move(right)){};
-   T accept(Visitor<T> * visitor)
-  {       return visitor->visitTernaryExpr(this);
-   }};
-template<typename T>
-class Literal: public Expr<T>{
+ Ternary(std::unique_ptr<Expr >& condition,std::unique_ptr<Expr >& left,std::unique_ptr<Expr >& right):condition(std::move(condition)),left(std::move(left)),right(std::move(right)){};
+MAKE_VISITABLE
+};
+class Literal: public Expr{
    public:
    std::any value;
    public:
  Literal(std::any value):value(value){};
-   T accept(Visitor<T> * visitor)
-  {       return visitor->visitLiteralExpr(this);
-   }};
-template<typename T>
-class Unary: public Expr<T>{
+MAKE_VISITABLE
+};
+class Unary: public Expr{
    public:
    Token oper;
-   std::unique_ptr<Expr<T> > right;
+   std::unique_ptr<Expr > right;
    public:
- Unary(Token oper,std::unique_ptr<Expr<T> >& right):oper(oper),right(std::move(right)){};
-   T accept(Visitor<T> * visitor)
-  {       return visitor->visitUnaryExpr(this);
-   }};
-template<typename T>
-class Nothing: public Expr<T>{
+ Unary(Token oper,std::unique_ptr<Expr >& right):oper(oper),right(std::move(right)){};
+MAKE_VISITABLE
+};
+class Nothing: public Expr{
    public:
    std::string nothing;
    public:
  Nothing(std::string nothing):nothing(nothing){};
-   T accept(Visitor<T> * visitor)
-  {       return visitor->visitNothingExpr(this);
-   }};
+MAKE_VISITABLE
+};
+template<typename VisitorImpl, typename VisitablePtr, typename ResultType>
+    class ValueGetter
+    {
+    public:
+        static ResultType evaluate(VisitablePtr n)
+        {
+            VisitorImpl vis;
+            n->accept(vis); // this call fills the return value
+            return vis.value;
+        }
+
+        void Return(ResultType value_)
+        {
+            value = value_;
+        }
+    private:
+        ResultType value;
+    };
+    

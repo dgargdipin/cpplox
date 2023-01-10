@@ -48,8 +48,7 @@ bool templated_type(string type) {
 
 void define_type(ofstream &writer, string basename, string class_name, string field_list) {
     vector<string> fields = split(field_list, ", ");
-    writer << "template<typename T>\n";
-    writer << "class " << class_name << ": public " << basename << "<T>{\n";
+    writer << "class " << class_name << ": public " << basename << "{\n";
     writer << "   public:\n";
     string type, name;
     for (auto field: fields) {
@@ -59,7 +58,7 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
             writer << "   " << type + " " + name << ";" << std::endl;
         } else {
             writer << "   "
-                   << "std::unique_ptr<" + type + "<T> > " + name << ";" << std::endl;
+                   << "std::unique_ptr<" + type + " > " + name << ";" << std::endl;
         }
     }
     writer << "   public:\n";
@@ -71,10 +70,11 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
         if (templated_type(type)) {
             writer << type + " " + name;
         } else {
-            writer << "std::unique_ptr<" + type + "<T> >& " + name;
+            writer << "std::unique_ptr<" + type + " >& " + name;
         }
-        if (i != fields.size() - 1)
+        if (i != fields.size() - 1) {
             writer << ",";
+        }
     }
     writer << "):";
     for (int i = 0; i < fields.size(); i++) {
@@ -88,12 +88,15 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
             writer << name << "(std::move(" << name << "))";
         }
         // std::cout<<name<<std::endl;
-        if (i != fields.size() - 1)
+        if (i != fields.size() - 1) {
             writer << ",";
+        }
     }
     writer << "{};\n";
-    writer << "   T accept(Visitor<T> * visitor)\n  {       return visitor->visit" + class_name + basename +
-              "(this);\n   }";
+//    writer << "template<typename T>\n";
+//    writer << "   T accept(Visitor<T> * visitor)\n  {       return visitor->visit" + class_name + basename +
+//              "(this);\n   }";
+    writer<<"MAKE_VISITABLE\n";
     writer << "};\n";
 
     // writer << "   " << class_name << "(" << field_list << ")"<<":";
@@ -109,37 +112,61 @@ string lowercase(string str) {
 }
 
 void define_visitor(ofstream &writer, string base_name, vector<string> types) {
-    writer << "template<typename T> class Visitor{\n    public:\n";
+    writer << "class Visitor{\n    public:\n";
     for (auto type: types) {
         std::istringstream ss(type);
         std::string class_name;
         std::getline(ss, class_name, ':');
         trim(class_name);
-        writer << "   virtual T visit" + class_name + base_name + '(' + class_name + "<T>*" + lowercase(base_name) +
+        writer << "   virtual void visit(" + class_name + " *" + lowercase(base_name) +
                   ")=0;\n";
     }
+
     writer << "};\n";
 }
 
 void define_baseclass(ofstream &writer, string base_name) {
-    writer << "template<typename T>\n";
     writer << "class " << base_name << "{\n public:\n";
-    writer << "   virtual T accept(Visitor<T>* visitor)=0;\n";
+//    writer << "template<typename T>\n";
+    writer << "   virtual void accept(Visitor& visitor)=0;\n";
+//    writer << "   virtual ~Expr();";
     writer << "};\n";
 }
 
 void forward_decl_classes(ofstream &writer, string base_name, vector<string> types) {
-    writer << "template <typename T>\n";
+//    writer << "template <typename T>\n";
     writer << "class " << base_name << ";\n";
     for (auto type: types) {
         std::istringstream ss(type);
         std::string class_name;
         std::getline(ss, class_name, ':');
         trim(class_name);
-        writer << "template <typename T>\n";
+//        writer << "template <typename T>\n";
         writer << "class " << class_name << ";\n";
     }
 }
+
+void define_valuegetter(ofstream &writer){
+    writer<<R"ABC(template<typename VisitorImpl, typename VisitablePtr, typename ResultType>
+    class ValueGetter
+    {
+    public:
+        static ResultType evaluate(VisitablePtr n)
+        {
+            VisitorImpl vis;
+            n->accept(vis); // this call fills the return value
+            return vis.value;
+        }
+
+        void Return(ResultType value_)
+        {
+            value = value_;
+        }
+    private:
+        ResultType value;
+    };
+    )ABC";
+};
 
 void define_ast(string output_dir, string basename, vector<string> types) {
     string path = output_dir + '/' + basename + ".hpp";
@@ -155,6 +182,8 @@ void define_ast(string output_dir, string basename, vector<string> types) {
     forward_decl_classes(writer, basename, types);
     define_visitor(writer, basename, types);
     define_baseclass(writer, basename);
+    writer<<"#define MAKE_VISITABLE virtual void accept(Visitor& vis) override { vis.visit(this);}\n";
+
     for (auto type: types) {
         std::istringstream ss(type);
         std::string class_name, fields;
@@ -164,6 +193,7 @@ void define_ast(string output_dir, string basename, vector<string> types) {
         trim(fields);
         define_type(writer, basename, class_name, fields);
     }
+    define_valuegetter(writer);
 };
 
 int main(int argc, char **argv) {

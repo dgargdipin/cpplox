@@ -29,7 +29,7 @@ void Lox::run(std::string input) {
     Scanner scanner(std::move(input));
     auto tokens = scanner.scanTokens();
 
-    Parser<std::any> parser(tokens);
+    Parser parser(tokens);
     //    p.print();
     //    print();
     auto expression = parser.parseTokens();
