@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/lox.dir/src/lox.cpp.o CMakeFiles/lox.dir/src/main.cpp.o CMakeFiles/lox.dir/src/RuntimeException.cpp.o CMakeFiles/lox.dir/src/scanner.cpp.o CMakeFiles/lox.dir/src/utils.cpp.o -o lox 

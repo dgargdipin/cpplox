@@ -1,2 +1,0 @@
-/usr/bin/ar qc liblox.a CMakeFiles/lox.dir/lox.cpp.o CMakeFiles/lox.dir/RuntimeException.cpp.o CMakeFiles/lox.dir/scanner.cpp.o CMakeFiles/lox.dir/utils.cpp.o
-/usr/bin/ranlib liblox.a

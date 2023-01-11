@@ -1,5 +1,0 @@
-if(EXISTS "/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test/unit_test[1]_tests.cmake")
-  include("/home/dgargdipin/dev/lox/cmake-build-debug-wsl/test/unit_test[1]_tests.cmake")
-else()
-  add_test(unit_test_NOT_BUILT unit_test_NOT_BUILT)
-endif()
