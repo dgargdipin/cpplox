@@ -193,7 +193,6 @@ void define_ast(string output_dir, string basename, vector<string> types) {
         trim(fields);
         define_type(writer, basename, class_name, fields);
     }
-    define_valuegetter(writer);
 };
 
 int main(int argc, char **argv) {

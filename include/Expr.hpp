@@ -70,22 +70,3 @@ class Nothing: public Expr{
  Nothing(std::string nothing):nothing(nothing){};
 MAKE_VISITABLE
 };
-template<typename VisitorImpl, typename VisitablePtr, typename ResultType>
-    class ValueGetter
-    {
-    public:
-        static ResultType evaluate(VisitablePtr n)
-        {
-            static VisitorImpl vis;
-            n->accept(vis); // this call fills the return value
-            return vis.value;
-        }
-
-        void Return(ResultType value_)
-        {
-            value = value_;
-        }
-    private:
-        ResultType value;
-    };
-    
