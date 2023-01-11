@@ -9,6 +9,7 @@
 #include <typeindex>
 #include <cassert>
 #include "utils.h"
+#include <cmath>
 
 namespace Lox {
 
@@ -18,7 +19,8 @@ namespace Lox {
         std::unique_ptr<Object> value;
 //        Object value;
     public:
-        #define RETURN(ret) Return(ret);return
+#define RETURN(ret) Return(ret);return
+
         Interpreter() {
             std::cout << "Called constructor to interpreter" << std::endl;
         }
@@ -26,7 +28,7 @@ namespace Lox {
         Object evaluate(Expr *n) {
 //            static Interpreter vis;
             n->accept(*this); // this call fills the return value
-            Object * obj = value.release();
+            Object *obj = value.release();
             return *obj;
         }
 
@@ -102,6 +104,18 @@ namespace Lox {
             throw RuntimeException(operator_token, "Operands must be numbers");
         }
 
+        bool isEqual(double x, double y) {
+            const double epsilon = 1e-5 /* some small number such as 1e-5 */;
+            return std::abs(x - y) <= epsilon * std::abs(x);
+            // see Knuth section 4.2.2 pages 217-218
+        }
+
+        void check_not_zero(Token operator_token,double d) {
+            if (isEqual(d, 0.00)){
+                throw RuntimeException(operator_token, "Division by 0 error");
+            };
+        }
+
         void visit(Unary *expr) {
             Object right = evaluate(expr->right.get());
             switch (expr->oper.type) {
@@ -110,7 +124,7 @@ namespace Lox {
                     RETURN(-std::any_cast<double>(right));
 
                 case BANG:
-                    RETURN(!isTruthy(right));
+                RETURN(!isTruthy(right));
 
             }
         }
@@ -130,7 +144,10 @@ namespace Lox {
                 }
                 case SLASH: {
                     check_number_operands(expr->oper, left, right);
-                    RETURN(std::any_cast<double>(left) / std::any_cast<double>(right));
+
+                    double double_right = std::any_cast<double>(right);
+                    check_not_zero(expr->oper, double_right);
+                    RETURN(std::any_cast<double>(left) / double_right);
 
                 }
                 case STAR: {
@@ -158,29 +175,28 @@ namespace Lox {
                     RETURN(std::any_cast<double>(left) <= std::any_cast<double>(right));
 
                 case BANG_EQUAL:
-                    RETURN(!isEqual(left, right));
+                RETURN(!isEqual(left, right));
 
                 case EQUAL_EQUAL:
-                    RETURN(isEqual(left, right));
+                RETURN(isEqual(left, right));
 
-                case PLUS:
-                {
-                    if(instanceof<std::string>(left)){
-                        auto left_str=std::any_cast<std::string>(left);
-                        if(instanceof<std::string>(right)){
-                            auto right_str=std::any_cast<std::string>(right);
-                            RETURN(left_str+right_str);
+                case PLUS: {
+                    if (instanceof<std::string>(left)) {
+                        auto left_str = std::any_cast<std::string>(left);
+                        if (instanceof<std::string>(right)) {
+                            auto right_str = std::any_cast<std::string>(right);
+                            RETURN(left_str + right_str);
                         }
-                        auto right_double=std::any_cast<double>(right);
-                        RETURN(left_str+to_string(right_double));
+                        auto right_double = std::any_cast<double>(right);
+                        RETURN(left_str + to_string(right_double));
                     }
-                    auto left_double=std::any_cast<double>(left);
-                    if(instanceof<std::string>(right)){
-                        auto right_str=std::any_cast<std::string>(right);
-                        RETURN(to_string(left_double)+right_str);
+                    auto left_double = std::any_cast<double>(left);
+                    if (instanceof<std::string>(right)) {
+                        auto right_str = std::any_cast<std::string>(right);
+                        RETURN(to_string(left_double) + right_str);
                     }
-                    auto right_double=std::any_cast<double>(right);
-                     RETURN(left_double+right_double);
+                    auto right_double = std::any_cast<double>(right);
+                    RETURN(left_double + right_double);
                 }
             }
 

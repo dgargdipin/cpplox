@@ -11,7 +11,7 @@
 std::string readTextFile(const std::string &path) {
     std::ifstream file(path);
     if (file.fail()) {
-        error("Cannot open input file", path);
+        Lox::error("Cannot open input file", path);
     }
     std::stringstream buffer;
     buffer << file.rdbuf();

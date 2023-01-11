@@ -217,6 +217,7 @@ unique_ptr<Expr> Parser::primary() {
         return std::make_unique<Grouping >(expr);
     }
 //    throw error(peek(), "Expect Expression");
+    advance(); // advance curr pointer to next so that rest of expr can be parsed because this fn will return Nothing
     return std::make_unique<Nothing >("Placeholder");
 }
 
