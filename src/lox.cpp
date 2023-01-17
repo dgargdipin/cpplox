@@ -32,11 +32,11 @@ void Lox::run(std::string input) {
     Parser parser(tokens);
     //    p.print();
     //    print();
-    auto expression = parser.parseTokens();
+    auto stmts = parser.parseTokens();
     if (had_error)
         return;
     // std::cout << ASTPrinter().print(std::move(expression));
-    interpreter.interpret(std::move(expression));
+    interpreter.interpret(stmts);
     //
     //    std::cout<<tokens.size()<<std::endl;
 

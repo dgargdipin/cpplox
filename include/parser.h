@@ -9,7 +9,7 @@
 #include "lox.h"
 #include <iostream>
 #include <memory>
-
+#include "Stmt.hpp"
 using std::unique_ptr;
 using std::vector;
 
@@ -50,6 +50,12 @@ class Parser {
 
     unique_ptr<Expr> ternary();
 
+    unique_ptr<Stmt> statement();
+
+    unique_ptr<Print> print_statement();
+
+    unique_ptr<Expression> expression_statement();
+
     bool match(std::initializer_list<token_type>);
 
     template<class DstType, class SrcType>
@@ -80,7 +86,7 @@ class Parser {
 public:
     explicit Parser(vector<Token> tokens) : tokens(std::move(tokens)) {};
 
-    unique_ptr<Expr> parseTokens();
+    std::vector<unique_ptr<Stmt> > parseTokens();
 };
 
 
@@ -259,7 +265,7 @@ Token Parser::peek() {
 
 
 bool Parser::isAtEnd() {
-    return peek().type == EOF;
+    return peek().type == T_EOF;
 }
 
 
@@ -308,13 +314,36 @@ void Parser::synchronise() {
 //     }
 // }
 
-unique_ptr<Expr> Parser::parseTokens() {
+std::vector<unique_ptr<Stmt> > Parser::parseTokens() {
 
-
-    auto res = this->expression();
+    std::vector<unique_ptr<Stmt> > statements;
+    while(!isAtEnd()){
+        statements.emplace_back(statement());
+    }
+//    auto res = this->expression();
     for (auto &error: handled_parse_errors) {
         Lox::error(error.token, error.message);
     }
-    return res;
+    return statements;
 
 }
+
+unique_ptr<Stmt> Parser::statement() {
+    if(match({PRINT})){
+        return print_statement();
+    }
+    return expression_statement();
+}
+
+unique_ptr<Print> Parser::print_statement() {
+    auto value=expression();
+    consume(SEMICOLON,"Expected ';' after value");
+    return std::make_unique<Print>(value);
+}
+
+unique_ptr<Expression> Parser::expression_statement() {
+    auto value=expression();
+    consume(SEMICOLON,"Expected ';' after expression");
+    return std::make_unique<Expression>(value);
+}
+

@@ -9,7 +9,7 @@ class Ternary;
 class Literal;
 class Unary;
 class Nothing;
-class Visitor{
+class ExprVisitor{
     public:
    virtual void visit(Binary *expr)=0;
    virtual void visit(Grouping *expr)=0;
@@ -17,12 +17,14 @@ class Visitor{
    virtual void visit(Literal *expr)=0;
    virtual void visit(Unary *expr)=0;
    virtual void visit(Nothing *expr)=0;
+   virtual ~ExprVisitor()=default;
 };
 class Expr{
  public:
-   virtual void accept(Visitor& visitor)=0;
+   virtual void accept(ExprVisitor& visitor)=0;
+   virtual ~Expr()=default;
+#define MAKE_VISITABLE_Expr virtual void accept(ExprVisitor& vis) override { vis.visit(this);}
 };
-#define MAKE_VISITABLE virtual void accept(Visitor& vis) override { vis.visit(this);}
 class Binary: public Expr{
    public:
    std::unique_ptr<Expr > left;
@@ -30,14 +32,14 @@ class Binary: public Expr{
    std::unique_ptr<Expr > right;
    public:
  Binary(std::unique_ptr<Expr >& left,Token oper,std::unique_ptr<Expr >& right):left(std::move(left)),oper(oper),right(std::move(right)){};
-MAKE_VISITABLE
+MAKE_VISITABLE_Expr
 };
 class Grouping: public Expr{
    public:
    std::unique_ptr<Expr > expression;
    public:
  Grouping(std::unique_ptr<Expr >& expression):expression(std::move(expression)){};
-MAKE_VISITABLE
+MAKE_VISITABLE_Expr
 };
 class Ternary: public Expr{
    public:
@@ -46,14 +48,14 @@ class Ternary: public Expr{
    std::unique_ptr<Expr > right;
    public:
  Ternary(std::unique_ptr<Expr >& condition,std::unique_ptr<Expr >& left,std::unique_ptr<Expr >& right):condition(std::move(condition)),left(std::move(left)),right(std::move(right)){};
-MAKE_VISITABLE
+MAKE_VISITABLE_Expr
 };
 class Literal: public Expr{
    public:
    std::any value;
    public:
  Literal(std::any value):value(value){};
-MAKE_VISITABLE
+MAKE_VISITABLE_Expr
 };
 class Unary: public Expr{
    public:
@@ -61,12 +63,12 @@ class Unary: public Expr{
    std::unique_ptr<Expr > right;
    public:
  Unary(Token oper,std::unique_ptr<Expr >& right):oper(oper),right(std::move(right)){};
-MAKE_VISITABLE
+MAKE_VISITABLE_Expr
 };
 class Nothing: public Expr{
    public:
    std::string nothing;
    public:
  Nothing(std::string nothing):nothing(nothing){};
-MAKE_VISITABLE
+MAKE_VISITABLE_Expr
 };

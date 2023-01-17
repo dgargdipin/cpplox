@@ -43,7 +43,7 @@ vector<string> split(string s, string delimiter) {
 }
 
 bool templated_type(string type) {
-    return type == "Token" || type == "std::any"|| type == "std::string";
+    return type == "Token" || type == "std::any" || type == "std::string";
 }
 
 void define_type(ofstream &writer, string basename, string class_name, string field_list) {
@@ -96,7 +96,7 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
 //    writer << "template<typename T>\n";
 //    writer << "   T accept(Visitor<T> * visitor)\n  {       return visitor->visit" + class_name + basename +
 //              "(this);\n   }";
-    writer<<"MAKE_VISITABLE\n";
+    writer << "MAKE_VISITABLE_"+basename+"\n";
     writer << "};\n";
 
     // writer << "   " << class_name << "(" << field_list << ")"<<":";
@@ -112,7 +112,7 @@ string lowercase(string str) {
 }
 
 void define_visitor(ofstream &writer, string base_name, vector<string> types) {
-    writer << "class Visitor{\n    public:\n";
+    writer << "class "+base_name+"Visitor{\n    public:\n";
     for (auto type: types) {
         std::istringstream ss(type);
         std::string class_name;
@@ -122,14 +122,16 @@ void define_visitor(ofstream &writer, string base_name, vector<string> types) {
                   ")=0;\n";
     }
 
+    writer << "   virtual ~"+base_name+"Visitor()=default;\n";
     writer << "};\n";
 }
 
 void define_baseclass(ofstream &writer, string base_name) {
     writer << "class " << base_name << "{\n public:\n";
 //    writer << "template<typename T>\n";
-    writer << "   virtual void accept(Visitor& visitor)=0;\n";
-//    writer << "   virtual ~Expr();";
+    writer << "   virtual void accept("+base_name+"Visitor& visitor)=0;\n";
+    writer << "   virtual ~"+base_name+"()=default;\n";
+    writer << "#define MAKE_VISITABLE_" +base_name+" virtual void accept("+base_name+"Visitor& vis) override { vis.visit(this);}\n";
     writer << "};\n";
 }
 
@@ -146,8 +148,8 @@ void forward_decl_classes(ofstream &writer, string base_name, vector<string> typ
     }
 }
 
-void define_valuegetter(ofstream &writer){
-    writer<<R"ABC(template<typename VisitorImpl, typename VisitablePtr, typename ResultType>
+void define_valuegetter(ofstream &writer) {
+    writer << R"ABC(template<typename VisitorImpl, typename VisitablePtr, typename ResultType>
     class ValueGetter
     {
     public:
@@ -168,7 +170,7 @@ void define_valuegetter(ofstream &writer){
     )ABC";
 };
 
-void define_ast(string output_dir, string basename, vector<string> types) {
+void define_ast(string output_dir, string basename, vector<string> types, vector<string> additional_includes = {}) {
     string path = output_dir + '/' + basename + ".hpp";
     ofstream writer(path);
     if (!writer) {
@@ -179,10 +181,17 @@ void define_ast(string output_dir, string basename, vector<string> types) {
     writer << "#include<any>\n";
     writer << "#include<memory>\n";
     writer << "#include \"scanner.h\"\n";
+
+    //additional includes
+    for (auto &stmt: additional_includes) {
+        writer << stmt;
+    }
+
+
     forward_decl_classes(writer, basename, types);
     define_visitor(writer, basename, types);
     define_baseclass(writer, basename);
-    writer<<"#define MAKE_VISITABLE virtual void accept(Visitor& vis) override { vis.visit(this);}\n";
+
 
     for (auto type: types) {
         std::istringstream ss(type);
@@ -206,4 +215,9 @@ int main(int argc, char **argv) {
                                     "Unary    : Token oper, Expr right",
                                     "Nothing: std::string nothing"
     });
+    define_ast(output_dir, "Stmt", {
+            "Expression : Expr expression",
+            "Print      : Expr expression"
+    }, {"#include \"Expr.hpp\"\n"});
+
 }

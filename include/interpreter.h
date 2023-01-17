@@ -15,21 +15,26 @@ namespace Lox {
 
     typedef std::any Object;
 
-    class Interpreter : public Visitor {
-        std::unique_ptr<Object> value;
+    class Interpreter : public ExprVisitor, StmtVisitor {
+        std::unique_ptr<Object> value; //value for exprvisitor
 //        Object value;
+        void execute(Stmt *stmt) {
+            stmt->accept(*this);
+        }
     public:
 #define RETURN(ret) Return(ret);return
 
-        Interpreter() {
-            std::cout << "Called constructor to interpreter" << std::endl;
-        }
+//        Interpreter() {
+////            std::cout << "Called constructor to interpreter" << std::endl;
+//        }
 
         Object evaluate(Expr *n) {
 //            static Interpreter vis;
             n->accept(*this); // this call fills the return value
-            Object *obj = value.release();
-            return *obj;
+
+            Object obj = *value;
+            value.reset();
+            return obj;
         }
 
         void Return(Object value_) {
@@ -55,20 +60,30 @@ namespace Lox {
             assert(false);
         }
 
-        void interpret(std::unique_ptr<Expr> expr) {
+        void interpret(const std::vector< unique_ptr<Stmt> >& statements) {
             try {
-                Object value = evaluate(expr.get());
-                std::cout << get_string_repr(value) << std::endl;
+                for(auto& stmt:statements){
+                    execute(stmt.get());
+                }
+
+
             }
             catch (RuntimeException &e) {
                 Lox::runtime_error(e);
             }
         }
 
-//        Object evaluate(Expr *expr) {
+
+        //        Object evaluate(Expr *expr) {
 //            return expr->accept(this);
 //        }
-
+        void visit(Expression* expr){
+            evaluate(expr->expression.get());
+        }
+        void visit(Print* print_expr){
+            Object val= evaluate(print_expr->expression.get());
+            std::cout << get_string_repr(val) << std::endl;
+        }
         void visit(Literal *expr) {
             RETURN(expr->value);
         };
