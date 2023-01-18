@@ -10,6 +10,7 @@
 #include <iostream>
 #include <memory>
 #include "Stmt.hpp"
+
 using std::unique_ptr;
 using std::vector;
 
@@ -52,6 +53,10 @@ class Parser {
 
     unique_ptr<Stmt> statement();
 
+    unique_ptr<Stmt> declaration();
+
+    unique_ptr<Var> var_declaration();
+
     unique_ptr<Print> print_statement();
 
     unique_ptr<Expression> expression_statement();
@@ -91,7 +96,7 @@ public:
 
 
 void Parser::check_missing_expr(Expr *expr, std::string error_message) {
-    if (IsType<Nothing >(expr)) {
+    if (IsType<Nothing>(expr)) {
         handled_parse_errors.push_back(HandledParseError(previous(), error_message));
     };
 }
@@ -116,7 +121,7 @@ unique_ptr<Expr> Parser::comma() {
         check_missing_expr(expr.get(), "Binary operators must have a left and a right operand");
         Token operator_token = previous();
         auto right = ternary();
-        expr = std::make_unique<Binary >(expr, operator_token, right);
+        expr = std::make_unique<Binary>(expr, operator_token, right);
     }
     return expr;
 }
@@ -128,7 +133,7 @@ unique_ptr<Expr> Parser::ternary() {
         auto if_match = comma();
         consume(COLON, "EXPECTED COLON");
         auto if_not_match = ternary();
-        return std::make_unique<Ternary >(expr, if_match, if_not_match);
+        return std::make_unique<Ternary>(expr, if_match, if_not_match);
     }
     return expr;
 }
@@ -142,7 +147,7 @@ unique_ptr<Expr> Parser::equality() {
         auto right = comparison();
 
         // expr = new Binary(expr, operator_token, right);
-        expr = std::make_unique<Binary >(expr, operator_token, right);
+        expr = std::make_unique<Binary>(expr, operator_token, right);
     }
     return expr;
 }
@@ -154,7 +159,7 @@ unique_ptr<Expr> Parser::comparison() {
         check_missing_expr(expr.get(), "Binary operators must have a left and a right operand");
         Token operator_token = previous();
         auto right = term();
-        expr = std::make_unique<Binary >(expr, operator_token, right);
+        expr = std::make_unique<Binary>(expr, operator_token, right);
         // expr = new Binary(expr, operator_token, right);
     }
     return expr;
@@ -168,7 +173,7 @@ unique_ptr<Expr> Parser::term() {
         Token operator_token = previous();
         auto right = factor();
         // expr = new Binary(expr, operator_token, right);
-        expr = std::make_unique<Binary >(expr, operator_token, right);
+        expr = std::make_unique<Binary>(expr, operator_token, right);
     }
     return expr;
 }
@@ -181,7 +186,7 @@ unique_ptr<Expr> Parser::factor() {
         Token operator_token = previous();
         auto right = unary();
         // expr = new Binary(expr, operator_token, right);
-        expr = std::make_unique<Binary >(expr, operator_token, right);
+        expr = std::make_unique<Binary>(expr, operator_token, right);
     }
     return expr;
 }
@@ -191,7 +196,7 @@ unique_ptr<Expr> Parser::unary() {
     if (match({BANG, MINUS})) {
         Token operator_token = previous();
         auto right = unary();
-        return std::make_unique<Unary >(operator_token, right);
+        return std::make_unique<Unary>(operator_token, right);
         // return new Unary(operator_token, right);
     }
     return primary();
@@ -200,31 +205,34 @@ unique_ptr<Expr> Parser::unary() {
 
 unique_ptr<Expr> Parser::primary() {
     if (match({FALSE}))
-        return std::make_unique<Literal >(false);
+        return std::make_unique<Literal>(false);
     if (match({TRUE}))
-        return std::make_unique<Literal >(true);
+        return std::make_unique<Literal>(true);
     if (match({NIL}))
-        return std::make_unique<Literal >(std::any{});
+        return std::make_unique<Literal>(std::any{});
     check_invalid_token(DOT, peek(), "Values cannot begin with a dot.");
     if (match({NUMBER})) {
         literal_type literal = previous().literal;
         double val = std::get<double>(literal);
-        return std::make_unique<Literal >(val);
+        return std::make_unique<Literal>(val);
     }
 
     if (match({STRING})) {
         literal_type literal = previous().literal;
         std::string val = std::get<std::string>(literal);
-        return std::make_unique<Literal >(val);
+        return std::make_unique<Literal>(val);
     }
     if (match({LEFT_PAREN})) {
         auto expr = expression();
         consume(RIGHT_PAREN, "Expect ')' after expression");
-        return std::make_unique<Grouping >(expr);
+        return std::make_unique<Grouping>(expr);
     }
-//    throw error(peek(), "Expect Expression");
-    advance(); // advance curr pointer to next so that rest of expr can be parsed because this fn will return Nothing
-    return std::make_unique<Nothing >("Placeholder");
+    if (match({IDENTIFIER})) {
+        return std::make_unique<Variable>(previous());
+    }
+    throw error(peek(), "Expect Expression");
+//    advance(); // advance curr pointer to next so that rest of expr can be parsed because this fn will return Nothing
+//    return std::make_unique<Nothing >("Placeholder");
 }
 
 //T->T?T:T,T
@@ -317,8 +325,8 @@ void Parser::synchronise() {
 std::vector<unique_ptr<Stmt> > Parser::parseTokens() {
 
     std::vector<unique_ptr<Stmt> > statements;
-    while(!isAtEnd()){
-        statements.emplace_back(statement());
+    while (!isAtEnd()) {
+        statements.emplace_back(declaration());
     }
 //    auto res = this->expression();
     for (auto &error: handled_parse_errors) {
@@ -329,21 +337,44 @@ std::vector<unique_ptr<Stmt> > Parser::parseTokens() {
 }
 
 unique_ptr<Stmt> Parser::statement() {
-    if(match({PRINT})){
+    if (match({PRINT})) {
         return print_statement();
     }
     return expression_statement();
 }
 
 unique_ptr<Print> Parser::print_statement() {
-    auto value=expression();
-    consume(SEMICOLON,"Expected ';' after value");
+    auto value = expression();
+    consume(SEMICOLON, "Expected ';' after value");
     return std::make_unique<Print>(value);
 }
 
 unique_ptr<Expression> Parser::expression_statement() {
-    auto value=expression();
-    consume(SEMICOLON,"Expected ';' after expression");
+    auto value = expression();
+    consume(SEMICOLON, "Expected ';' after expression");
     return std::make_unique<Expression>(value);
+}
+
+unique_ptr<Stmt> Parser::declaration() {
+    try {
+        if (match({VAR})) {
+            return var_declaration();
+        }
+        return statement();
+    }
+    catch (ParseError &e) {
+        synchronise();
+        return nullptr;
+    }
+}
+
+unique_ptr<Var> Parser::var_declaration() {
+    Token name = consume(IDENTIFIER, "Expect variable name");
+    std::unique_ptr<Expr> initializer;
+    if (match({EQUAL})) {
+        initializer = expression();
+    }
+    consume(SEMICOLON, "Expect ';' after variable declaration");
+    return std::make_unique<Var>(name, initializer);
 }
 

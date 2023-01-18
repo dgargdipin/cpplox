@@ -213,11 +213,13 @@ int main(int argc, char **argv) {
     define_ast(output_dir, "Expr", {"Binary   : Expr left, Token oper, Expr right", "Grouping : Expr expression",
                                     "Ternary: Expr condition, Expr left, Expr right", "Literal  : std::any value",
                                     "Unary    : Token oper, Expr right",
-                                    "Nothing: std::string nothing"
+                                    "Nothing: std::string nothing",
+                                    "Variable: Token name"
     });
     define_ast(output_dir, "Stmt", {
             "Expression : Expr expression",
-            "Print      : Expr expression"
+            "Print      : Expr expression",
+            "Var : Token name, Expr initializer"
     }, {"#include \"Expr.hpp\"\n"});
 
 }

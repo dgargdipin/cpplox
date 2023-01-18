@@ -6,10 +6,12 @@
 class Stmt;
 class Expression;
 class Print;
+class Var;
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
    virtual void visit(Print *stmt)=0;
+   virtual void visit(Var *stmt)=0;
    virtual ~StmtVisitor()=default;
 };
 class Stmt{
@@ -30,5 +32,13 @@ class Print: public Stmt{
    std::unique_ptr<Expr > expression;
    public:
  Print(std::unique_ptr<Expr >& expression):expression(std::move(expression)){};
+MAKE_VISITABLE_Stmt
+};
+class Var: public Stmt{
+   public:
+   Token name;
+   std::unique_ptr<Expr > initializer;
+   public:
+ Var(Token name,std::unique_ptr<Expr >& initializer):name(name),initializer(std::move(initializer)){};
 MAKE_VISITABLE_Stmt
 };

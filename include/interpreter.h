@@ -1,6 +1,6 @@
 #pragma once
 
-#include <any>
+
 #include <string>
 #include "Expr.hpp"
 #include "RuntimeException.h"
@@ -10,10 +10,10 @@
 #include <cassert>
 #include "utils.h"
 #include <cmath>
+#include "types.h"
+#include "Environment.h"
 
 namespace Lox {
-
-    typedef std::any Object;
 
     class Interpreter : public ExprVisitor, StmtVisitor {
         std::unique_ptr<Object> value; //value for exprvisitor
@@ -21,6 +21,8 @@ namespace Lox {
         void execute(Stmt *stmt) {
             stmt->accept(*this);
         }
+
+        Environment environment;
     public:
 #define RETURN(ret) Return(ret);return
 
@@ -60,9 +62,9 @@ namespace Lox {
             assert(false);
         }
 
-        void interpret(const std::vector< unique_ptr<Stmt> >& statements) {
+        void interpret(const std::vector<unique_ptr<Stmt> > &statements) {
             try {
-                for(auto& stmt:statements){
+                for (auto &stmt: statements) {
                     execute(stmt.get());
                 }
 
@@ -73,17 +75,31 @@ namespace Lox {
             }
         }
 
+        void visit(Var *stmt) {
+            Object value;
+            if (stmt->initializer) {
+                value = evaluate(stmt->initializer.get());
+            }
+            environment.define(stmt->name.lexeme, value);
+
+        }
+
+        void visit(Variable *expr) {
+            RETURN(environment.get(expr->name));
+        }
 
         //        Object evaluate(Expr *expr) {
 //            return expr->accept(this);
 //        }
-        void visit(Expression* expr){
+        void visit(Expression *expr) {
             evaluate(expr->expression.get());
         }
-        void visit(Print* print_expr){
-            Object val= evaluate(print_expr->expression.get());
+
+        void visit(Print *print_expr) {
+            Object val = evaluate(print_expr->expression.get());
             std::cout << get_string_repr(val) << std::endl;
         }
+
         void visit(Literal *expr) {
             RETURN(expr->value);
         };
@@ -105,6 +121,7 @@ namespace Lox {
 
         }
 
+
         void visit(Nothing *expr) {
             throw std::runtime_error("Runtime error");
         }
@@ -125,8 +142,8 @@ namespace Lox {
             // see Knuth section 4.2.2 pages 217-218
         }
 
-        void check_not_zero(Token operator_token,double d) {
-            if (isEqual(d, 0.00)){
+        void check_not_zero(Token operator_token, double d) {
+            if (isEqual(d, 0.00)) {
                 throw RuntimeException(operator_token, "Division by 0 error");
             };
         }

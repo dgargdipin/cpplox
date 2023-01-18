@@ -9,6 +9,7 @@ class Ternary;
 class Literal;
 class Unary;
 class Nothing;
+class Variable;
 class ExprVisitor{
     public:
    virtual void visit(Binary *expr)=0;
@@ -17,6 +18,7 @@ class ExprVisitor{
    virtual void visit(Literal *expr)=0;
    virtual void visit(Unary *expr)=0;
    virtual void visit(Nothing *expr)=0;
+   virtual void visit(Variable *expr)=0;
    virtual ~ExprVisitor()=default;
 };
 class Expr{
@@ -70,5 +72,12 @@ class Nothing: public Expr{
    std::string nothing;
    public:
  Nothing(std::string nothing):nothing(nothing){};
+MAKE_VISITABLE_Expr
+};
+class Variable: public Expr{
+   public:
+   Token name;
+   public:
+ Variable(Token name):name(name){};
 MAKE_VISITABLE_Expr
 };

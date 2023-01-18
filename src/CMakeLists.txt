@@ -12,6 +12,7 @@ target_sources(
         RuntimeException.cpp
         scanner.cpp
         utils.cpp
+        Environment.cpp
 )
 add_executable(lox_repl)
 set_target_properties(lox_repl PROPERTIES OUTPUT_NAME "lox")
