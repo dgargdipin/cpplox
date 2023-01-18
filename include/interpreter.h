@@ -88,6 +88,12 @@ namespace Lox {
             RETURN(environment.get(expr->name));
         }
 
+        void visit(Assign *expr) {
+            Object  value=evaluate(expr->value.get());
+            environment.assign(expr->name,value);
+            RETURN(value);
+        }
+
         //        Object evaluate(Expr *expr) {
 //            return expr->accept(this);
 //        }

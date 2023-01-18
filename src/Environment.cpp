@@ -17,4 +17,12 @@ namespace Lox {
         throw new RuntimeException(name,
                                    "Undefined variable '" + name.lexeme + "'.");
     }
+
+    void Environment::assign(Token name, Object value) {
+        if(values.count(name.lexeme)){
+            values[name.lexeme]=value;
+            return;
+        }
+        throw RuntimeException(name,"Undefined variable '\" + name.lexeme + \"'.");
+    }
 } // Lox

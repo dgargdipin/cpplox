@@ -16,8 +16,10 @@ namespace Lox {
     class Environment {
         std::unordered_map<std::string, Object> values;
     public:
-
+        // set a variable, even create it if the name doesnt exist
         void define(std::string name,Object value);
+        // update a varaible, throw error if name doesnt exist
+        void assign(Token name,Object value);
         Object get(Token name);
 
 

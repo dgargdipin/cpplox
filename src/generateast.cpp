@@ -214,7 +214,8 @@ int main(int argc, char **argv) {
                                     "Ternary: Expr condition, Expr left, Expr right", "Literal  : std::any value",
                                     "Unary    : Token oper, Expr right",
                                     "Nothing: std::string nothing",
-                                    "Variable: Token name"
+                                    "Variable: Token name",
+                                    "Assign: Token name, Expr value"
     });
     define_ast(output_dir, "Stmt", {
             "Expression : Expr expression",

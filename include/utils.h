@@ -11,4 +11,9 @@ namespace Lox{
         strs << t;
         return strs.str();
     }
+    template<typename other, typename T>
+    inline bool instanceof(const T *ptr) {
+        return dynamic_cast<const other*>(ptr) != nullptr;
+    }
+
 }

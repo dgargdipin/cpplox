@@ -51,6 +51,8 @@ class Parser {
 
     unique_ptr<Expr> ternary();
 
+    unique_ptr<Expr> assignment();
+
     unique_ptr<Stmt> statement();
 
     unique_ptr<Stmt> declaration();
@@ -110,7 +112,7 @@ void Parser::check_invalid_token(token_type token, Token previous, std::string e
 
 
 unique_ptr<Expr> Parser::expression() {
-    return comma();
+    return assignment();
 }
 
 
@@ -376,5 +378,21 @@ unique_ptr<Var> Parser::var_declaration() {
     }
     consume(SEMICOLON, "Expect ';' after variable declaration");
     return std::make_unique<Var>(name, initializer);
+}
+
+unique_ptr<Expr> Parser::assignment() {
+    auto expr=comma();
+    if(match({EQUAL})){
+        Token equals=previous();
+        auto value=assignment();
+        if(Lox::instanceof<Variable>(expr.get())){
+            Token name=((Variable*)expr.get())->name;
+            return std::make_unique<Assign>(name,value);
+        }
+        error(equals,"Invalid assignment target");
+
+    }
+    return expr;
+
 }
 
