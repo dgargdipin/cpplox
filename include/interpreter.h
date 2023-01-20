@@ -22,13 +22,17 @@ namespace Lox {
             stmt->accept(*this);
         }
 
-        Environment environment;
+        Environment *environment;
     public:
 #define RETURN(ret) Return(ret);return
 
-//        Interpreter() {
-////            std::cout << "Called constructor to interpreter" << std::endl;
-//        }
+        Interpreter() {
+            environment = new Environment();
+        }
+
+        ~Interpreter() {
+            delete environment;
+        }
 
         Object evaluate(Expr *n) {
 //            static Interpreter vis;
@@ -80,17 +84,17 @@ namespace Lox {
             if (stmt->initializer) {
                 value = evaluate(stmt->initializer.get());
             }
-            environment.define(stmt->name.lexeme, value);
+            environment->define(stmt->name.lexeme, value);
 
         }
 
         void visit(Variable *expr) {
-            RETURN(environment.get(expr->name));
+            RETURN(environment->get(expr->name));
         }
 
         void visit(Assign *expr) {
-            Object  value=evaluate(expr->value.get());
-            environment.assign(expr->name,value);
+            Object value = evaluate(expr->value.get());
+            environment->assign(expr->name, value);
             RETURN(value);
         }
 
@@ -165,6 +169,26 @@ namespace Lox {
                 RETURN(!isTruthy(right));
 
             }
+        }
+
+        void visit(Block *stmt) {
+            Environment env(this->environment);
+            execute_block(stmt->statements, env);
+        }
+
+        void execute_block(VecUniquePtr<Stmt> &statements, Environment &env) {
+            Environment *previous = this->environment;
+
+            try{
+                this->environment = &env;
+                for (auto &stmt: statements.get()) {
+                    execute(stmt.get());
+                }
+            }
+            catch(...){
+                this->environment=previous;
+            }
+            this->environment=previous;
         }
 
         void visit(Binary *expr) {

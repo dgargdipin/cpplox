@@ -13,16 +13,18 @@ namespace Lox {
         if (values.count(name.lexeme)) {
             return values.at(name.lexeme);
         }
-
+        if (enclosing)
+            return enclosing->get(name);
         throw new RuntimeException(name,
                                    "Undefined variable '" + name.lexeme + "'.");
     }
 
     void Environment::assign(Token name, Object value) {
-        if(values.count(name.lexeme)){
-            values[name.lexeme]=value;
+        if (values.count(name.lexeme)) {
+            values[name.lexeme] = value;
             return;
         }
-        throw RuntimeException(name,"Undefined variable '\" + name.lexeme + \"'.");
+        if (enclosing)enclosing->assign(name, value);
+        throw RuntimeException(name, "Undefined variable '\" + name.lexeme + \"'.");
     }
 } // Lox

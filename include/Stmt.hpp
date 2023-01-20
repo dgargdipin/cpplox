@@ -1,16 +1,19 @@
 #pragma once
 #include<any>
 #include<memory>
+#include "types.h"
 #include "scanner.h"
 #include "Expr.hpp"
 class Stmt;
 class Expression;
 class Print;
+class Block;
 class Var;
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
    virtual void visit(Print *stmt)=0;
+   virtual void visit(Block *stmt)=0;
    virtual void visit(Var *stmt)=0;
    virtual ~StmtVisitor()=default;
 };
@@ -32,6 +35,13 @@ class Print: public Stmt{
    std::unique_ptr<Expr > expression;
    public:
  Print(std::unique_ptr<Expr >& expression):expression(std::move(expression)){};
+MAKE_VISITABLE_Stmt
+};
+class Block: public Stmt{
+   public:
+   Lox::VecUniquePtr<Stmt> statements;
+   public:
+ Block(Lox::VecUniquePtr<Stmt> statements):statements(statements){};
 MAKE_VISITABLE_Stmt
 };
 class Var: public Stmt{

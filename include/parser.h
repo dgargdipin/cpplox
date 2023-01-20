@@ -61,6 +61,8 @@ class Parser {
 
     unique_ptr<Print> print_statement();
 
+    Lox::VecUniquePtr<Stmt> block();
+
     unique_ptr<Expression> expression_statement();
 
     bool match(std::initializer_list<token_type>);
@@ -342,6 +344,9 @@ unique_ptr<Stmt> Parser::statement() {
     if (match({PRINT})) {
         return print_statement();
     }
+    if (match({LEFT_BRACE})) {
+        return std::make_unique<Block>(block());
+    }
     return expression_statement();
 }
 
@@ -381,18 +386,27 @@ unique_ptr<Var> Parser::var_declaration() {
 }
 
 unique_ptr<Expr> Parser::assignment() {
-    auto expr=comma();
-    if(match({EQUAL})){
-        Token equals=previous();
-        auto value=assignment();
-        if(Lox::instanceof<Variable>(expr.get())){
-            Token name=((Variable*)expr.get())->name;
-            return std::make_unique<Assign>(name,value);
+    auto expr = comma();
+    if (match({EQUAL})) {
+        Token equals = previous();
+        auto value = assignment();
+        if (Lox::instanceof<Variable>(expr.get())) {
+            Token name = ((Variable *) expr.get())->name;
+            return std::make_unique<Assign>(name, value);
         }
-        error(equals,"Invalid assignment target");
+        error(equals, "Invalid assignment target");
 
     }
     return expr;
 
+}
+
+Lox::VecUniquePtr<Stmt> Parser::block() {
+    Lox::VecUniquePtr<Stmt> statements;
+    while(!check({RIGHT_BRACE})&&!isAtEnd()){
+        statements.get().emplace_back(declaration());
+    }
+    consume(RIGHT_BRACE, "Expect '}' after block.");
+    return statements;
 }
 

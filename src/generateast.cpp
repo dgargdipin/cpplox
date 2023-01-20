@@ -42,9 +42,22 @@ vector<string> split(string s, string delimiter) {
     return res;
 }
 
-bool templated_type(string type) {
-    return type == "Token" || type == "std::any" || type == "std::string";
+inline bool starts_with(std::string to_find_in, std::string to_find) {
+    return to_find_in.rfind(to_find, 0) == 0;
 }
+
+bool store_as_copy(string type) {
+    return type == "Token" || type == "std::any" || type == "std::string"||starts_with(type,"Lox::VecUniquePtr");
+}
+
+bool store_as_pointer(string type) {
+    return type=="Expr";
+}
+
+
+//bool move_type(string type) {
+//    return
+//}
 
 void define_type(ofstream &writer, string basename, string class_name, string field_list) {
     vector<string> fields = split(field_list, ", ");
@@ -54,9 +67,9 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
     for (auto field: fields) {
         std::istringstream stream(field);
         stream >> type >> name;
-        if (templated_type(type)) {
+        if (store_as_copy(type)) {
             writer << "   " << type + " " + name << ";" << std::endl;
-        } else {
+        } else if (store_as_pointer(type)) {
             writer << "   "
                    << "std::unique_ptr<" + type + " > " + name << ";" << std::endl;
         }
@@ -67,10 +80,12 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
         auto &field = fields[i];
         std::istringstream stream(field);
         stream >> type >> name;
-        if (templated_type(type)) {
+        if (store_as_copy(type)) {
             writer << type + " " + name;
-        } else {
+        } else if (store_as_pointer(type)) {
             writer << "std::unique_ptr<" + type + " >& " + name;
+        } else {
+            std::cout << "WARNING: undefined storage type: " << type << std::endl;
         }
         if (i != fields.size() - 1) {
             writer << ",";
@@ -82,9 +97,9 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
         string name, type;
         std::istringstream stream(field);
         stream >> type >> name;
-        if (templated_type(type)) {
+        if (store_as_copy(type)) {
             writer << name << "(" << name << ")";
-        } else {
+        } else if(store_as_pointer(type)) {
             writer << name << "(std::move(" << name << "))";
         }
         // std::cout<<name<<std::endl;
@@ -96,7 +111,7 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
 //    writer << "template<typename T>\n";
 //    writer << "   T accept(Visitor<T> * visitor)\n  {       return visitor->visit" + class_name + basename +
 //              "(this);\n   }";
-    writer << "MAKE_VISITABLE_"+basename+"\n";
+    writer << "MAKE_VISITABLE_" + basename + "\n";
     writer << "};\n";
 
     // writer << "   " << class_name << "(" << field_list << ")"<<":";
@@ -112,7 +127,7 @@ string lowercase(string str) {
 }
 
 void define_visitor(ofstream &writer, string base_name, vector<string> types) {
-    writer << "class "+base_name+"Visitor{\n    public:\n";
+    writer << "class " + base_name + "Visitor{\n    public:\n";
     for (auto type: types) {
         std::istringstream ss(type);
         std::string class_name;
@@ -122,16 +137,17 @@ void define_visitor(ofstream &writer, string base_name, vector<string> types) {
                   ")=0;\n";
     }
 
-    writer << "   virtual ~"+base_name+"Visitor()=default;\n";
+    writer << "   virtual ~" + base_name + "Visitor()=default;\n";
     writer << "};\n";
 }
 
 void define_baseclass(ofstream &writer, string base_name) {
     writer << "class " << base_name << "{\n public:\n";
 //    writer << "template<typename T>\n";
-    writer << "   virtual void accept("+base_name+"Visitor& visitor)=0;\n";
-    writer << "   virtual ~"+base_name+"()=default;\n";
-    writer << "#define MAKE_VISITABLE_" +base_name+" virtual void accept("+base_name+"Visitor& vis) override { vis.visit(this);}\n";
+    writer << "   virtual void accept(" + base_name + "Visitor& visitor)=0;\n";
+    writer << "   virtual ~" + base_name + "()=default;\n";
+    writer << "#define MAKE_VISITABLE_" + base_name + " virtual void accept(" + base_name +
+              "Visitor& vis) override { vis.visit(this);}\n";
     writer << "};\n";
 }
 
@@ -180,6 +196,7 @@ void define_ast(string output_dir, string basename, vector<string> types, vector
     writer << "#pragma once\n";
     writer << "#include<any>\n";
     writer << "#include<memory>\n";
+    writer << "#include \"types.h\"\n";
     writer << "#include \"scanner.h\"\n";
 
     //additional includes
@@ -220,6 +237,7 @@ int main(int argc, char **argv) {
     define_ast(output_dir, "Stmt", {
             "Expression : Expr expression",
             "Print      : Expr expression",
+            "Block: Lox::VecUniquePtr<Stmt> statements",
             "Var : Token name, Expr initializer"
     }, {"#include \"Expr.hpp\"\n"});
 
