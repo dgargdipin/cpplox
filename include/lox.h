@@ -11,7 +11,7 @@ std::string readTextFile(const std::string &path);
 namespace Lox {
 //    extern bool had_error;
 
-    void run(std::string input);
+    void run(std::string input,bool print_expressions);
 
     void report(int line, const std::string &where, const std::string &message);
 

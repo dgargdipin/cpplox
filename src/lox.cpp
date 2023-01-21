@@ -25,7 +25,7 @@ namespace Lox {
     Interpreter interpreter;
 }
 
-void Lox::run(std::string input) {
+void Lox::run(std::string input, bool print_expressions = false) {
     Scanner scanner(std::move(input));
     auto tokens = scanner.scanTokens();
 
@@ -36,7 +36,7 @@ void Lox::run(std::string input) {
     if (had_error)
         return;
     // std::cout << ASTPrinter().print(std::move(expression));
-    interpreter.interpret(stmts);
+    interpreter.interpret(stmts,print_expressions);
     //
     //    std::cout<<tokens.size()<<std::endl;
 
@@ -54,8 +54,8 @@ void Lox::report(int line, const std::string &where, const std::string &message)
 void Lox::runFile(std::string path) {
     auto input_text = readTextFile(std::move(path));
     run(input_text);
-    if(had_error)std::exit(EX_DATAERR);
-    if(had_runtime_error)std::exit(EX_SOFTWARE);
+    if (had_error)std::exit(EX_DATAERR);
+    if (had_runtime_error)std::exit(EX_SOFTWARE);
 }
 
 void Lox::runPrompt() {
@@ -65,7 +65,7 @@ void Lox::runPrompt() {
         getline(std::cin, current_line);
         if (current_line.empty())
             break;
-        run(current_line);
+        run(current_line, true);
         had_error = false;
     }
 }
@@ -84,6 +84,6 @@ void Lox::error(Token token, std::string message) {
 
 void Lox::runtime_error(Lox::RuntimeException &e) {
     std::cerr << e.what() << "\n[line " << e.token.line << "]\n";
-    had_runtime_error=true;
+    had_runtime_error = true;
 
 }

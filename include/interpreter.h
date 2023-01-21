@@ -37,13 +37,19 @@ namespace Lox {
         Object evaluate(Expr *n) {
 //            static Interpreter vis;
             n->accept(*this); // this call fills the return value
+            return get_expr_value();
+        }
 
+        //unsafe if value doesnt contain any value
+        Object get_expr_value() {
             Object obj = *value;
             value.reset();
+//            std::cout<<"RESETTING Value "<<get_string_repr(obj)<<std::endl;
             return obj;
         }
 
         void Return(Object value_) {
+//            std::cout<<"SETTING Value "<<get_string_repr(value_)<<std::endl;
             value = std::make_unique<Object>(value_);
         }
 
@@ -66,10 +72,14 @@ namespace Lox {
             assert(false);
         }
 
-        void interpret(const std::vector<unique_ptr<Stmt> > &statements) {
+        void interpret(const std::vector<unique_ptr<Stmt> > &statements, bool print_expressions) {
             try {
                 for (auto &stmt: statements) {
                     execute(stmt.get());
+                    if (print_expressions && value) {
+                        auto val = get_expr_value();
+                        std::cout << get_string_repr(val) << std::endl;
+                    }
                 }
 
 
@@ -102,11 +112,11 @@ namespace Lox {
 //            return expr->accept(this);
 //        }
         void visit(Expression *expr) {
-            evaluate(expr->expression.get());
+            RETURN(evaluate(expr->expression.get()));
         }
 
-        void visit(Print *print_expr) {
-            Object val = evaluate(print_expr->expression.get());
+        void visit(Print *stmt) {
+            Object val = evaluate(stmt->expression.get());
             std::cout << get_string_repr(val) << std::endl;
         }
 
@@ -179,16 +189,16 @@ namespace Lox {
         void execute_block(VecUniquePtr<Stmt> &statements, Environment &env) {
             Environment *previous = this->environment;
 
-            try{
+            try {
                 this->environment = &env;
                 for (auto &stmt: statements.get()) {
                     execute(stmt.get());
                 }
             }
-            catch(...){
-                this->environment=previous;
+            catch (...) {
+                this->environment = previous;
             }
-            this->environment=previous;
+            this->environment = previous;
         }
 
         void visit(Binary *expr) {
