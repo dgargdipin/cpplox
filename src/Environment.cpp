@@ -15,7 +15,7 @@ namespace Lox {
         }
         if (enclosing)
             return enclosing->get(name);
-        throw new RuntimeException(name,
+        throw RuntimeException(name,
                                    "Undefined variable '" + name.lexeme + "'.");
     }
 
@@ -25,6 +25,6 @@ namespace Lox {
             return;
         }
         if (enclosing)enclosing->assign(name, value);
-        throw RuntimeException(name, "Undefined variable '\" + name.lexeme + \"'.");
+        throw RuntimeException(name, "Undefined variable '\"" + name.lexeme + "\"'.");
     }
 } // Lox

@@ -54,24 +54,6 @@ namespace Lox {
         }
 
 
-        std::string get_string_repr(Object &obj) {
-            if (instanceof<double>(obj)) {
-                return to_string(std::any_cast<double>(obj));
-            }
-            if (instanceof<bool>(obj)) {
-                bool bool_obj = std::any_cast<bool>(obj);
-                if (bool_obj)
-                    return "True";
-                return "False";
-            }
-            if (instanceof<std::string>(obj)) {
-                return std::any_cast<std::string>(obj);
-            }
-            //TODO error handling when getting string repr of object
-
-            assert(false);
-        }
-
         void interpret(const std::vector<unique_ptr<Stmt> > &statements, bool print_expressions) {
             try {
                 for (auto &stmt: statements) {
@@ -99,7 +81,12 @@ namespace Lox {
         }
 
         void visit(Variable *expr) {
-            RETURN(environment->get(expr->name));
+            Object val = environment->get(expr->name);
+            if (!val.has_value()) {
+                throw RuntimeException(expr->name, "Can't access undefined variable");
+            }
+            RETURN(val);
+//            RETURN(environment->get(expr->name));
         }
 
         void visit(Assign *expr) {
@@ -147,12 +134,12 @@ namespace Lox {
         }
 
         void check_number_operand(Token operator_token, Object &operand) {
-            if (instanceof<double>(operand))return;
+            if (lox_object_type<double>(operand))return;
             throw RuntimeException(operator_token, "Operand must be a number");
         }
 
         void check_number_operands(Token operator_token, Object &left, Object &right) {
-            if (instanceof<double>(left) && instanceof<double>(right))return;
+            if (lox_object_type<double>(left) && lox_object_type<double>(right))return;
             throw RuntimeException(operator_token, "Operands must be numbers");
         }
 
@@ -253,9 +240,9 @@ namespace Lox {
                 RETURN(isEqual(left, right));
 
                 case PLUS: {
-                    if (instanceof<std::string>(left)) {
+                    if (lox_object_type<std::string>(left)) {
                         auto left_str = std::any_cast<std::string>(left);
-                        if (instanceof<std::string>(right)) {
+                        if (lox_object_type<std::string>(right)) {
                             auto right_str = std::any_cast<std::string>(right);
                             RETURN(left_str + right_str);
                         }
@@ -263,7 +250,7 @@ namespace Lox {
                         RETURN(left_str + to_string(right_double));
                     }
                     auto left_double = std::any_cast<double>(left);
-                    if (instanceof<std::string>(right)) {
+                    if (lox_object_type<std::string>(right)) {
                         auto right_str = std::any_cast<std::string>(right);
                         RETURN(to_string(left_double) + right_str);
                     }
@@ -295,13 +282,13 @@ namespace Lox {
                 return false;
             if (!same_type(val1, val2))
                 return false;
-            if (instanceof<double>(val1)) {
+            if (lox_object_type<double>(val1)) {
                 return std::any_cast<double>(val1) == std::any_cast<double>(val2);
             }
-            if (instanceof<bool>(val1)) {
+            if (lox_object_type<bool>(val1)) {
                 return std::any_cast<bool>(val1) == std::any_cast<bool>(val2);
             }
-            if (instanceof<std::string>(val1)) {
+            if (lox_object_type<std::string>(val1)) {
                 return std::any_cast<std::string>(val1) == std::any_cast<std::string>(val2);
             }
             throw std::runtime_error("Unexpected types");
@@ -311,10 +298,6 @@ namespace Lox {
             return !obj.has_value();
         }
 
-        template<typename T>
-        bool instanceof(Object &obj) {
-            return obj.type() == typeid(T);
-        }
 
         bool same_type(Object &obj1, Object &obj2) {
             return obj1.type() == obj2.type();
@@ -322,4 +305,6 @@ namespace Lox {
 
 
     };
+
+
 }
