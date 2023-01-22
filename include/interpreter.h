@@ -79,6 +79,15 @@ namespace Lox {
             environment->define(stmt->name.lexeme, value);
 
         }
+        void visit(If *stmt){
+            auto condition= evaluate(stmt->condition.get());
+            if(isTruthy(condition)){
+                execute(stmt->then_branch.get());
+            }
+            else{
+                execute(stmt->else_branch.get());
+            }
+        }
 
         void visit(Variable *expr) {
             Object val = environment->get(expr->name);

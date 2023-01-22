@@ -51,7 +51,7 @@ bool store_as_copy(string type) {
 }
 
 bool store_as_pointer(string type) {
-    return type=="Expr";
+    return type=="Expr"||type=="Stmt";
 }
 
 
@@ -238,7 +238,8 @@ int main(int argc, char **argv) {
             "Expression : Expr expression",
             "Print      : Expr expression",
             "Block: Lox::VecUniquePtr<Stmt> statements",
-            "Var : Token name, Expr initializer"
+            "Var : Token name, Expr initializer",
+            "If : Expr condition, Stmt then_branch, Stmt else_branch",
     }, {"#include \"Expr.hpp\"\n"});
 
 }

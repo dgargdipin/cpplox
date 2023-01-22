@@ -9,12 +9,14 @@ class Expression;
 class Print;
 class Block;
 class Var;
+class If;
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
    virtual void visit(Print *stmt)=0;
    virtual void visit(Block *stmt)=0;
    virtual void visit(Var *stmt)=0;
+   virtual void visit(If *stmt)=0;
    virtual ~StmtVisitor()=default;
 };
 class Stmt{
@@ -50,5 +52,14 @@ class Var: public Stmt{
    std::unique_ptr<Expr > initializer;
    public:
  Var(Token name,std::unique_ptr<Expr >& initializer):name(name),initializer(std::move(initializer)){};
+MAKE_VISITABLE_Stmt
+};
+class If: public Stmt{
+   public:
+   std::unique_ptr<Expr > condition;
+   std::unique_ptr<Stmt > then_branch;
+   std::unique_ptr<Stmt > else_branch;
+   public:
+ If(std::unique_ptr<Expr >& condition,std::unique_ptr<Stmt >& then_branch,std::unique_ptr<Stmt >& else_branch):condition(std::move(condition)),then_branch(std::move(then_branch)),else_branch(std::move(else_branch)){};
 MAKE_VISITABLE_Stmt
 };

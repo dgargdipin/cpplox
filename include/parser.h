@@ -55,6 +55,8 @@ class Parser {
 
     unique_ptr<Stmt> statement();
 
+    unique_ptr<If> if_statement();
+
     unique_ptr<Stmt> declaration();
 
     unique_ptr<Var> var_declaration();
@@ -347,6 +349,9 @@ unique_ptr<Stmt> Parser::statement() {
     if (match({LEFT_BRACE})) {
         return std::make_unique<Block>(block());
     }
+    if (match({IF})) {
+        return if_statement();
+    }
     return expression_statement();
 }
 
@@ -403,10 +408,22 @@ unique_ptr<Expr> Parser::assignment() {
 
 Lox::VecUniquePtr<Stmt> Parser::block() {
     Lox::VecUniquePtr<Stmt> statements;
-    while(!check({RIGHT_BRACE})&&!isAtEnd()){
+    while (!check({RIGHT_BRACE}) && !isAtEnd()) {
         statements.get().emplace_back(declaration());
     }
     consume(RIGHT_BRACE, "Expect '}' after block.");
     return statements;
+}
+
+unique_ptr<If> Parser::if_statement() {
+    consume(LEFT_PAREN, "Expect '(' after 'if'.");
+    auto condition = expression();
+    consume(RIGHT_PAREN, "Expect ')' after if condition.");
+    auto then_branch = statement();
+    std::unique_ptr<Stmt> else_branch;
+    if (match({ELSE})) {
+        else_branch = statement();
+    }
+    return std::make_unique<If>(condition, then_branch, else_branch);
 }
 
