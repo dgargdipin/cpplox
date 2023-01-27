@@ -31,6 +31,7 @@ public:
 class Parser {
     vector<Token> tokens;
     vector<HandledParseError> handled_parse_errors;
+    int nested_loops = 0;
     int current = 0;
 
     unique_ptr<Expr> expression();
@@ -366,6 +367,14 @@ unique_ptr<Stmt> Parser::statement() {
     if (match({FOR})) {
         return for_statement();
     }
+    if (match({T_BREAK})) {
+        if (nested_loops == 0) {
+            throw error(previous(), "Cannot use 'break' without a loop");
+        }
+        consume(SEMICOLON, "Expect ';' after break statement.");
+
+        return std::make_unique<Break>("placeholder");
+    }
     return expression_statement();
 }
 
@@ -470,10 +479,13 @@ unique_ptr<Expr> Parser::logical_and() {
 }
 
 unique_ptr<While> Parser::while_statement() {
+
     consume(LEFT_PAREN, "Expect '(' after 'while'.");
     auto condition = expression();
-    consume(RIGHT_PAREN, "Expect '(' after 'while'.");
+    consume(RIGHT_PAREN, "Expect ')' after 'while'.");
+    nested_loops++;
     auto body = statement();
+    nested_loops--;
     return std::make_unique<While>(condition, body);
 }
 
@@ -499,7 +511,9 @@ unique_ptr<Stmt> Parser::for_statement() {
         increment = expression();
     }
     consume(RIGHT_PAREN, "Expect ')' after for clauses.");
+    nested_loops++;
     auto body = statement();
+    nested_loops--;
     Lox::VecUniquePtr<Stmt> while_block_statements;
     while_block_statements.push_back(std::move(body));
     while_block_statements.push_back(std::make_unique<Expression>(increment));

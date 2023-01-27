@@ -11,6 +11,7 @@ class Block;
 class Var;
 class If;
 class While;
+class Break;
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
@@ -19,6 +20,7 @@ class StmtVisitor{
    virtual void visit(Var *stmt)=0;
    virtual void visit(If *stmt)=0;
    virtual void visit(While *stmt)=0;
+   virtual void visit(Break *stmt)=0;
    virtual ~StmtVisitor()=default;
 };
 class Stmt{
@@ -71,5 +73,12 @@ class While: public Stmt{
    std::unique_ptr<Stmt > body;
    public:
  While(std::unique_ptr<Expr >& condition,std::unique_ptr<Stmt >& body):condition(std::move(condition)),body(std::move(body)){};
+MAKE_VISITABLE_Stmt
+};
+class Break: public Stmt{
+   public:
+   std::string placeholder;
+   public:
+ Break(std::string placeholder):placeholder(placeholder){};
 MAKE_VISITABLE_Stmt
 };

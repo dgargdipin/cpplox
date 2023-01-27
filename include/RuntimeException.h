@@ -18,6 +18,8 @@ namespace Lox {
     const char *what();
 };
 
+class BreakException: public std::exception{
+};
 
 } // Lox
 

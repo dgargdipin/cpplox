@@ -2,7 +2,7 @@
 #include "lox.h"
 #include "logger.h"
 
-loglevel_e loglevel=logERROR;
+loglevel_e loglevel = logERROR;
 std::unordered_map<std::string, token_type> Scanner::keywords = {{"and",    AND},
                                                                  {"class",  CLASS},
                                                                  {"else",   ELSE},
@@ -18,7 +18,9 @@ std::unordered_map<std::string, token_type> Scanner::keywords = {{"and",    AND}
                                                                  {"this",   THIS},
                                                                  {"true",   TRUE},
                                                                  {"var",    VAR},
-                                                                 {"while",  WHILE}};
+                                                                 {"while",  WHILE},
+                                                                 {"break",  T_BREAK},
+};
 
 std::vector<Token> Scanner::scanTokens() {
     while (!isAtEnd()) {
@@ -67,12 +69,12 @@ char Scanner::peekNext() {
     return source[current + 1];
 }
 
-void Scanner::multiline_comment(){
-    bool found=false;
-    while(!found&&!isAtEnd()){
-        char c=advance();
-        if(c=='\n')line++;
-        else if(c=='*'&&peek()=='/')found=true;
+void Scanner::multiline_comment() {
+    bool found = false;
+    while (!found && !isAtEnd()) {
+        char c = advance();
+        if (c == '\n')line++;
+        else if (c == '*' && peek() == '/')found = true;
     }
     advance();
 }
@@ -132,10 +134,9 @@ void Scanner::scanToken() {
             if (match('/')) {
                 while (!isAtEnd() && peek() != '\n')
                     advance();
-            } else if(match('*')){
-                    multiline_comment();
-            }
-            else {
+            } else if (match('*')) {
+                multiline_comment();
+            } else {
                 addToken(SLASH);
             }
         }

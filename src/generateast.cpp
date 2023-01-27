@@ -242,6 +242,7 @@ int main(int argc, char **argv) {
             "Var : Token name, Expr initializer",
             "If : Expr condition, Stmt then_branch, Stmt else_branch",
             "While : Expr condition, Stmt body",
+            "Break : std::string placeholder"
     }, {"#include \"Expr.hpp\"\n"});
 
 }

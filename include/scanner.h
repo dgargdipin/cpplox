@@ -53,7 +53,7 @@ enum token_type
     TRUE,
     VAR,
     WHILE,
-
+    T_BREAK,
     T_EOF,
 
 };

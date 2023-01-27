@@ -81,8 +81,13 @@ namespace Lox {
         }
 
         void visit(While *stmt) {
-            while (isTruthy(evaluate(stmt->condition.get()))) {
-                execute(stmt->body.get());
+            try {
+                while (isTruthy(evaluate(stmt->condition.get()))) {
+                    execute(stmt->body.get());
+                }
+            }
+            catch (BreakException &e) {
+
             }
         }
 
@@ -102,12 +107,19 @@ namespace Lox {
         }
 
         void visit(If *stmt) {
+
             auto condition = evaluate(stmt->condition.get());
             if (isTruthy(condition)) {
                 execute(stmt->then_branch.get());
             } else {
-                execute(stmt->else_branch.get());
+                if(stmt->else_branch)execute(stmt->else_branch.get());
             }
+
+
+        }
+
+        void visit(Break *stmt) {
+            throw BreakException();
         }
 
         void visit(Variable *expr) {
@@ -202,17 +214,32 @@ namespace Lox {
         }
 
         void execute_block(VecUniquePtr<Stmt> &statements, Environment *env) {
+//            std::cout<<"Executing block\n";
             Environment *previous = this->environment;
 
 
             this->environment = env;
-            for (auto &stmt: statements.get()) {
-                execute(stmt.get());
+
+
+            try {
+                for (auto &stmt: statements.get()) {
+                    execute(stmt.get());
+                }
+            }
+            catch (BreakException &e) {
+                this->environment = previous;
+                throw e;
             }
 
-
             this->environment = previous;
+//            std::cout<<"Exiting block\n";
         }
+
+//        while(A)
+//        B;
+//        {
+//
+//        }
 
         void visit(Binary *expr) {
             Object left = evaluate(expr->left.get());
