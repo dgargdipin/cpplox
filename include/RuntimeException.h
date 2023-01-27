@@ -10,10 +10,12 @@
 
 namespace Lox {
 
-    class RuntimeException: public std::runtime_error {
+    class RuntimeException: public std::exception {
     public:
     Token token;
-    RuntimeException(Token token, std::string message) : token(token), std::runtime_error(message){};
+    std::string message;
+    RuntimeException(Token token, std::string message) : token(token),message(message){};
+    const char *what();
 };
 
 

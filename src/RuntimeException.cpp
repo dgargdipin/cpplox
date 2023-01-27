@@ -5,4 +5,8 @@
 #include "RuntimeException.h"
 
 namespace Lox {
+
+    const char *RuntimeException::what() {
+        return message.c_str();
+    }
 } // Lox

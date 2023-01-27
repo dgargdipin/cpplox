@@ -47,7 +47,7 @@ void Lox::run(std::string input, bool print_expressions = false) {
 }
 
 void Lox::report(int line, const std::string &where, const std::string &message) {
-    std::cerr << "[line " << line << "] Error" << where << ": " << message;
+    std::cerr << "[line " << line << "] Error" << where << ": " << message<<std::endl;
     had_error = true;
 }
 

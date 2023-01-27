@@ -232,6 +232,7 @@ int main(int argc, char **argv) {
                                     "Unary    : Token oper, Expr right",
                                     "Nothing: std::string nothing",
                                     "Variable: Token name",
+                                    "Logical: Expr left, Token oper, Expr right",
                                     "Assign: Token name, Expr value"
     });
     define_ast(output_dir, "Stmt", {
@@ -240,6 +241,7 @@ int main(int argc, char **argv) {
             "Block: Lox::VecUniquePtr<Stmt> statements",
             "Var : Token name, Expr initializer",
             "If : Expr condition, Stmt then_branch, Stmt else_branch",
+            "While : Expr condition, Stmt body",
     }, {"#include \"Expr.hpp\"\n"});
 
 }

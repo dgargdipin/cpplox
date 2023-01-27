@@ -51,11 +51,19 @@ class Parser {
 
     unique_ptr<Expr> ternary();
 
+    unique_ptr<Expr> logical_or();
+
+    unique_ptr<Expr> logical_and();
+
     unique_ptr<Expr> assignment();
 
     unique_ptr<Stmt> statement();
 
     unique_ptr<If> if_statement();
+
+    unique_ptr<While> while_statement();
+
+    unique_ptr<Stmt> for_statement();
 
     unique_ptr<Stmt> declaration();
 
@@ -116,17 +124,17 @@ void Parser::check_invalid_token(token_type token, Token previous, std::string e
 
 
 unique_ptr<Expr> Parser::expression() {
-    return assignment();
+    return comma();
 }
 
 
 unique_ptr<Expr> Parser::comma() {
 
-    auto expr = ternary();
+    auto expr = assignment();
     while (match({COMMA})) {
         check_missing_expr(expr.get(), "Binary operators must have a left and a right operand");
         Token operator_token = previous();
-        auto right = ternary();
+        auto right = assignment();
         expr = std::make_unique<Binary>(expr, operator_token, right);
     }
     return expr;
@@ -134,7 +142,7 @@ unique_ptr<Expr> Parser::comma() {
 
 
 unique_ptr<Expr> Parser::ternary() {
-    auto expr = equality();
+    auto expr = logical_or();
     if (match({QUESTION_MARK})) {
         auto if_match = comma();
         consume(COLON, "EXPECTED COLON");
@@ -352,6 +360,12 @@ unique_ptr<Stmt> Parser::statement() {
     if (match({IF})) {
         return if_statement();
     }
+    if (match({WHILE})) {
+        return while_statement();
+    }
+    if (match({FOR})) {
+        return for_statement();
+    }
     return expression_statement();
 }
 
@@ -391,7 +405,7 @@ unique_ptr<Var> Parser::var_declaration() {
 }
 
 unique_ptr<Expr> Parser::assignment() {
-    auto expr = comma();
+    auto expr = ternary();
     if (match({EQUAL})) {
         Token equals = previous();
         auto value = assignment();
@@ -425,5 +439,73 @@ unique_ptr<If> Parser::if_statement() {
         else_branch = statement();
     }
     return std::make_unique<If>(condition, then_branch, else_branch);
+}
+
+unique_ptr<Expr> Parser::logical_or() {
+    auto expr = logical_and();
+    while (match({OR})) {
+        check_missing_expr(expr.get(), "Logical operators must have a left and a right operand");
+        Token operator_token = previous();
+        auto right = logical_and();
+        // expr = new Binary(expr, operator_token, right);
+        expr = std::make_unique<Logical>(expr, operator_token, right);
+    }
+    return expr;
+//    return unique_ptr<Expr>();
+}
+
+unique_ptr<Expr> Parser::logical_and() {
+//    return unique_ptr<Expr>();
+    auto expr = equality();
+    while (match({AND})) {
+        check_missing_expr(expr.get(), "Logical operators must have a left and a right operand");
+        Token operator_token = previous();
+        auto right = equality();
+        // expr = new Binary(expr, operator_token, right);
+        expr = std::make_unique<Logical>(expr, operator_token, right);
+    }
+    return expr;
+
+
+}
+
+unique_ptr<While> Parser::while_statement() {
+    consume(LEFT_PAREN, "Expect '(' after 'while'.");
+    auto condition = expression();
+    consume(RIGHT_PAREN, "Expect '(' after 'while'.");
+    auto body = statement();
+    return std::make_unique<While>(condition, body);
+}
+
+
+unique_ptr<Stmt> Parser::for_statement() {
+    consume(LEFT_PAREN, "Expect '(' after 'for'.");
+    Lox::VecUniquePtr<Stmt> new_block_statements;
+    std::unique_ptr<Stmt> initializer;
+    if (match({SEMICOLON})) {}
+    else {
+        if (match({VAR})) {
+            initializer = var_declaration();
+        } else initializer = expression_statement();
+        new_block_statements.push_back(std::move(initializer));
+    }
+    std::unique_ptr<Expr> condition;
+    if (!match({SEMICOLON})) {
+        condition = expression();
+    } else condition = std::make_unique<Literal>(true);
+    consume(SEMICOLON, "Expect ';' after loop condition.");
+    std::unique_ptr<Expr> increment;
+    if (!check(RIGHT_PAREN)) {
+        increment = expression();
+    }
+    consume(RIGHT_PAREN, "Expect ')' after for clauses.");
+    auto body = statement();
+    Lox::VecUniquePtr<Stmt> while_block_statements;
+    while_block_statements.push_back(std::move(body));
+    while_block_statements.push_back(std::make_unique<Expression>(increment));
+    std::unique_ptr<Stmt> internal_block = std::make_unique<Block>(while_block_statements);
+    auto while_statement = std::make_unique<While>(condition, internal_block);
+    new_block_statements.push_back(std::move(while_statement));
+    return std::make_unique<Block>(new_block_statements);
 }
 

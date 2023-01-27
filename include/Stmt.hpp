@@ -10,6 +10,7 @@ class Print;
 class Block;
 class Var;
 class If;
+class While;
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
@@ -17,6 +18,7 @@ class StmtVisitor{
    virtual void visit(Block *stmt)=0;
    virtual void visit(Var *stmt)=0;
    virtual void visit(If *stmt)=0;
+   virtual void visit(While *stmt)=0;
    virtual ~StmtVisitor()=default;
 };
 class Stmt{
@@ -61,5 +63,13 @@ class If: public Stmt{
    std::unique_ptr<Stmt > else_branch;
    public:
  If(std::unique_ptr<Expr >& condition,std::unique_ptr<Stmt >& then_branch,std::unique_ptr<Stmt >& else_branch):condition(std::move(condition)),then_branch(std::move(then_branch)),else_branch(std::move(else_branch)){};
+MAKE_VISITABLE_Stmt
+};
+class While: public Stmt{
+   public:
+   std::unique_ptr<Expr > condition;
+   std::unique_ptr<Stmt > body;
+   public:
+ While(std::unique_ptr<Expr >& condition,std::unique_ptr<Stmt >& body):condition(std::move(condition)),body(std::move(body)){};
 MAKE_VISITABLE_Stmt
 };

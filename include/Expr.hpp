@@ -11,6 +11,7 @@ class Literal;
 class Unary;
 class Nothing;
 class Variable;
+class Logical;
 class Assign;
 class ExprVisitor{
     public:
@@ -21,6 +22,7 @@ class ExprVisitor{
    virtual void visit(Unary *expr)=0;
    virtual void visit(Nothing *expr)=0;
    virtual void visit(Variable *expr)=0;
+   virtual void visit(Logical *expr)=0;
    virtual void visit(Assign *expr)=0;
    virtual ~ExprVisitor()=default;
 };
@@ -82,6 +84,15 @@ class Variable: public Expr{
    Token name;
    public:
  Variable(Token name):name(name){};
+MAKE_VISITABLE_Expr
+};
+class Logical: public Expr{
+   public:
+   std::unique_ptr<Expr > left;
+   Token oper;
+   std::unique_ptr<Expr > right;
+   public:
+ Logical(std::unique_ptr<Expr >& left,Token oper,std::unique_ptr<Expr >& right):left(std::move(left)),oper(oper),right(std::move(right)){};
 MAKE_VISITABLE_Expr
 };
 class Assign: public Expr{

@@ -8,6 +8,10 @@ namespace Lox {
     }
 
     std::string get_string_repr(Object &obj) {
+
+        if (!obj.has_value())return "nil";
+
+
         if (lox_object_type<double>(obj)) {
             return to_string(std::any_cast<double>(obj));
         }
@@ -22,7 +26,7 @@ namespace Lox {
         }
         //TODO error handling when getting string repr of object
 
-        throw new std::runtime_error("Unable to cast lox object to string repr\n");
+        throw std::runtime_error("Unable to cast lox object to string repr\n");
     }
 
 }

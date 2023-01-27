@@ -20,6 +20,7 @@ namespace Lox {
     public:
         Environment() = default;
 
+
         Environment(Environment *enclosing) : enclosing(enclosing) {};
 
         // set a variable, even create it if the name doesnt exist

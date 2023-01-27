@@ -79,21 +79,39 @@ namespace Lox {
             environment->define(stmt->name.lexeme, value);
 
         }
-        void visit(If *stmt){
-            auto condition= evaluate(stmt->condition.get());
-            if(isTruthy(condition)){
-                execute(stmt->then_branch.get());
+
+        void visit(While *stmt) {
+            while (isTruthy(evaluate(stmt->condition.get()))) {
+                execute(stmt->body.get());
             }
-            else{
+        }
+
+        void visit(Logical *expr) {
+            Object left = evaluate(expr->left.get());
+            if (expr->oper.type == OR) {
+                if (isTruthy(left)) {
+                    RETURN(left);
+                }
+            } else {
+                if (!isTruthy(left)) {
+                    RETURN(left);
+                }
+            }
+            RETURN(evaluate(expr->right.get()));
+
+        }
+
+        void visit(If *stmt) {
+            auto condition = evaluate(stmt->condition.get());
+            if (isTruthy(condition)) {
+                execute(stmt->then_branch.get());
+            } else {
                 execute(stmt->else_branch.get());
             }
         }
 
         void visit(Variable *expr) {
             Object val = environment->get(expr->name);
-            if (!val.has_value()) {
-                throw RuntimeException(expr->name, "Can't access undefined variable");
-            }
             RETURN(val);
 //            RETURN(environment->get(expr->name));
         }
@@ -178,22 +196,21 @@ namespace Lox {
         }
 
         void visit(Block *stmt) {
-            Environment env(this->environment);
+            Environment *env = new Environment(this->environment);
             execute_block(stmt->statements, env);
+            delete env;
         }
 
-        void execute_block(VecUniquePtr<Stmt> &statements, Environment &env) {
+        void execute_block(VecUniquePtr<Stmt> &statements, Environment *env) {
             Environment *previous = this->environment;
 
-            try {
-                this->environment = &env;
-                for (auto &stmt: statements.get()) {
-                    execute(stmt.get());
-                }
+
+            this->environment = env;
+            for (auto &stmt: statements.get()) {
+                execute(stmt.get());
             }
-            catch (...) {
-                this->environment = previous;
-            }
+
+
             this->environment = previous;
         }
 
@@ -272,7 +289,7 @@ namespace Lox {
 
         }
 
-        bool isTruthy(Object &val) {
+        bool isTruthy(Object val) {
             if (!val.has_value())
                 return false;
             try {
