@@ -15,6 +15,7 @@ target_sources(
         Environment.cpp
         parser.cpp
         interpreter.cpp
+        Clock.cpp
 )
 add_executable(lox_repl)
 set_target_properties(lox_repl PROPERTIES OUTPUT_NAME "lox")

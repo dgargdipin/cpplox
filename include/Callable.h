@@ -8,10 +8,14 @@
 #include "interpreter.h"
 
 namespace Lox {
+    class Interpreter;
 
     class Callable {
     public:
         virtual Object call(Interpreter &interpreter, std::vector<Object> arguments) = 0;
+
+        virtual ~Callable() = default;
+
         virtual int arity() = 0;
     };
 

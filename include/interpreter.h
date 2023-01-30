@@ -3,14 +3,18 @@
 
 #include "Environment.h"
 #include "Stmt.hpp"
+#include "Callable.h"
+
 namespace Lox {
+    class Callable;
 
     class Interpreter : public ExprVisitor, StmtVisitor {
         std::unique_ptr<Object> value; //value for exprvisitor
 //        Object value;
         void execute(Stmt *stmt);
 
-        Environment *environment;
+        Environment *global, *environment;
+        Callable *global_clock;
     public:
 #define RETURN(ret) Return(ret);return
 

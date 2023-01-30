@@ -13,6 +13,7 @@
 #include "token.h"
 #include "lox.h"
 #include "Callable.h"
+#include "Clock.h"
 
 using std::unique_ptr;
 namespace Lox {
@@ -331,11 +332,16 @@ namespace Lox {
     }
 
     Interpreter::Interpreter() {
-        environment = new Environment();
+        global = new Environment();
+        environment = global;
+        global_clock = (Callable *) (new Clock());
+
+        global->define("clock", global_clock);
     }
 
     Interpreter::~Interpreter() {
         delete environment;
+        delete global_clock;
     }
 
     void Interpreter::visit(Call *expr) {
