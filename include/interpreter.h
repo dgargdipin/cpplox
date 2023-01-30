@@ -52,6 +52,7 @@ namespace Lox {
 
         void visit(Ternary *expr);
 
+        void visit(Call *expr);
 
         void visit(Nothing *expr);
 

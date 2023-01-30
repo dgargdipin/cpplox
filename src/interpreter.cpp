@@ -7,13 +7,12 @@
 #include <stdexcept>
 #include "Stmt.hpp"
 #include <algorithm>
-#include <typeindex>
-#include <cassert>
 #include "utils.h"
 #include <cmath>
 #include "types.h"
 #include "token.h"
 #include "lox.h"
+#include "Callable.h"
 
 using std::unique_ptr;
 namespace Lox {
@@ -337,6 +336,31 @@ namespace Lox {
 
     Interpreter::~Interpreter() {
         delete environment;
+    }
+
+    void Interpreter::visit(Call *expr) {
+        Object callee = evaluate(expr->callee.get());
+        std::vector<Object> arguments;
+        for (auto &argument: expr->arguments.get()) {
+            arguments.push_back(evaluate(argument.get()));
+        }
+        try {
+            Callable *function = lox_object_cast<Callable *>(callee);
+            if (arguments.size() != function->arity()) {
+                throw RuntimeException(expr->paren, "Expected " +
+                                                    to_string(function->arity()) + " arguments but got " +
+                                                    to_string(arguments.size()) + ".");
+            }
+
+            RETURN(function->call(*this, arguments));
+        }
+        catch (std::bad_any_cast &e) {
+            throw RuntimeException(expr->paren,
+                                   "Can only call functions and classes.");
+
+        }
+
+
     }
 
 }

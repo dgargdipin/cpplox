@@ -233,7 +233,8 @@ int main(int argc, char **argv) {
                                     "Nothing: std::string nothing",
                                     "Variable: Token name",
                                     "Logical: Expr left, Token oper, Expr right",
-                                    "Assign: Token name, Expr value"
+                                    "Assign: Token name, Expr value",
+                                    "Call: Expr callee, Token paren, Lox::VecUniquePtr<Expr> arguments"
     });
     define_ast(output_dir, "Stmt", {
             "Expression : Expr expression",
@@ -243,6 +244,7 @@ int main(int argc, char **argv) {
             "If : Expr condition, Stmt then_branch, Stmt else_branch",
             "While : Expr condition, Stmt body",
             "Break : std::string placeholder"
+
     }, {"#include \"Expr.hpp\"\n"});
 
 }

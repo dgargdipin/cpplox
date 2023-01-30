@@ -7,6 +7,7 @@
 #include "utils.h"
 #include "scanner.h"
 #include "lox.h"
+
 void Parser::check_missing_expr(Expr *expr, std::string error_message) {
     if (IsType<Nothing>(expr)) {
         handled_parse_errors.push_back(HandledParseError(previous(), error_message));
@@ -111,7 +112,7 @@ unique_ptr<Expr> Parser::unary() {
         return std::make_unique<Unary>(operator_token, right);
         // return new Unary(operator_token, right);
     }
-    return primary();
+    return call();
 }
 
 
@@ -418,5 +419,38 @@ unique_ptr<Stmt> Parser::for_statement() {
     auto while_statement = std::make_unique<While>(condition, internal_block);
     new_block_statements.push_back(std::move(while_statement));
     return std::make_unique<Block>(new_block_statements);
+}
+
+unique_ptr<Expr> Parser::call() {
+    auto expr = primary();
+
+    while (true) {
+        if (match({LEFT_PAREN})) {
+            expr = finish_call(std::move(expr));
+        } else {
+            break;
+        }
+    }
+
+    return expr;
+
+}
+
+unique_ptr<Expr> Parser::finish_call(std::unique_ptr<Expr> callee) {
+    Lox::VecUniquePtr<Expr> arguments;
+    if (!check(RIGHT_PAREN)) {
+        do {
+            if (arguments.get().size() >= 255) {
+                error(peek(), "Can't have more than 255 arguments.");
+            }
+            arguments.push_back(expression());
+        } while (match({COMMA}));
+    }
+
+    Token paren = consume(RIGHT_PAREN,
+                          "Expect ')' after arguments.");
+
+    return std::make_unique<Call>(callee, paren, arguments);
+
 }
 

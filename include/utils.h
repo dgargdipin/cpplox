@@ -25,6 +25,16 @@ namespace Lox {
         return obj.type() == typeid(T);
     }
 
+    template<typename T>
+    T lox_object_cast(Object &obj) {
+        try {
+            return std::any_cast<T>(obj);
+        }
+        catch (std::bad_any_cast &e) {
+            throw e;
+        }
+    }
+
     std::string get_string_repr(Object &obj);
 
 }

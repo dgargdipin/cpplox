@@ -13,6 +13,7 @@ class Nothing;
 class Variable;
 class Logical;
 class Assign;
+class Call;
 class ExprVisitor{
     public:
    virtual void visit(Binary *expr)=0;
@@ -24,6 +25,7 @@ class ExprVisitor{
    virtual void visit(Variable *expr)=0;
    virtual void visit(Logical *expr)=0;
    virtual void visit(Assign *expr)=0;
+   virtual void visit(Call *expr)=0;
    virtual ~ExprVisitor()=default;
 };
 class Expr{
@@ -101,5 +103,14 @@ class Assign: public Expr{
    std::unique_ptr<Expr > value;
    public:
  Assign(Token name,std::unique_ptr<Expr >& value):name(name),value(std::move(value)){};
+MAKE_VISITABLE_Expr
+};
+class Call: public Expr{
+   public:
+   std::unique_ptr<Expr > callee;
+   Token paren;
+   Lox::VecUniquePtr<Expr> arguments;
+   public:
+ Call(std::unique_ptr<Expr >& callee,Token paren,Lox::VecUniquePtr<Expr> arguments):callee(std::move(callee)),paren(paren),arguments(arguments){};
 MAKE_VISITABLE_Expr
 };

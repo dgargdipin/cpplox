@@ -44,6 +44,10 @@ class Parser {
 
     unique_ptr<Expr> unary();
 
+    unique_ptr<Expr> call();
+
+    unique_ptr<Expr> finish_call(unique_ptr<Expr>);
+
     unique_ptr<Expr> primary();
 
     unique_ptr<Expr> comma();
