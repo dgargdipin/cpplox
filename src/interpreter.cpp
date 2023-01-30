@@ -14,6 +14,7 @@
 #include "lox.h"
 #include "Callable.h"
 #include "Clock.h"
+#include "LoxFunction.h"
 
 using std::unique_ptr;
 namespace Lox {
@@ -366,6 +367,12 @@ namespace Lox {
 
         }
 
+
+    }
+
+    void Interpreter::visit(Function *stmt) {
+        Callable *function = (Callable *) (new LoxFunction(stmt));
+        environment->define(stmt->name.lexeme, function);
 
     }
 

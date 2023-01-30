@@ -12,6 +12,7 @@ class Var;
 class If;
 class While;
 class Break;
+class Function;
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
@@ -21,6 +22,7 @@ class StmtVisitor{
    virtual void visit(If *stmt)=0;
    virtual void visit(While *stmt)=0;
    virtual void visit(Break *stmt)=0;
+   virtual void visit(Function *stmt)=0;
    virtual ~StmtVisitor()=default;
 };
 class Stmt{
@@ -80,5 +82,14 @@ class Break: public Stmt{
    std::string placeholder;
    public:
  Break(std::string placeholder):placeholder(placeholder){};
+MAKE_VISITABLE_Stmt
+};
+class Function: public Stmt{
+   public:
+   Token name;
+   std::vector<Token> params;
+   Lox::VecUniquePtr<Stmt> body;
+   public:
+ Function(Token name,std::vector<Token> params,Lox::VecUniquePtr<Stmt> body):name(name),params(params),body(body){};
 MAKE_VISITABLE_Stmt
 };

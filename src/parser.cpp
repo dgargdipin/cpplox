@@ -293,6 +293,9 @@ unique_ptr<Stmt> Parser::declaration() {
         if (match({VAR})) {
             return var_declaration();
         }
+        if (match({FUN})) {
+            return function("function");
+        }
         return statement();
     }
     catch (ParseError &e) {
@@ -443,7 +446,7 @@ unique_ptr<Expr> Parser::finish_call(std::unique_ptr<Expr> callee) {
             if (arguments.get().size() >= 255) {
                 error(peek(), "Can't have more than 255 arguments.");
             }
-            arguments.push_back(expression());
+            arguments.push_back(assignment());// do not using expression() since it parses comma too
         } while (match({COMMA}));
     }
 
@@ -453,4 +456,25 @@ unique_ptr<Expr> Parser::finish_call(std::unique_ptr<Expr> callee) {
     return std::make_unique<Call>(callee, paren, arguments);
 
 }
+
+unique_ptr<Stmt> Parser::function(std::string kind) {
+    Token name = consume(IDENTIFIER, "Expect " + kind + " name.");
+    consume(LEFT_PAREN, "Expect '(' after " + kind + " name.");
+    std::vector<Token> parameters;
+    if (!check(RIGHT_PAREN)) {
+        do {
+            if (parameters.size() >= 255) {
+                error(peek(), "Can't have more than 255 parameters.");
+            }
+            Token param = consume(IDENTIFIER, "Expect parameter name.");
+            parameters.push_back(param);
+        } while (match({COMMA}));
+        consume(RIGHT_PAREN, "Expect '(' after " + kind + " name.");
+        consume(LEFT_BRACE, "Expect '{' before " + kind + " body.");
+        auto body = block();
+        return std::make_unique<Function>(name, parameters, body);
+    }
+}
+
+
 

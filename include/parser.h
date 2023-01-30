@@ -46,6 +46,8 @@ class Parser {
 
     unique_ptr<Expr> call();
 
+    unique_ptr<Stmt> function(std::string kind);
+
     unique_ptr<Expr> finish_call(unique_ptr<Expr>);
 
     unique_ptr<Expr> primary();

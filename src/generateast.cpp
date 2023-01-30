@@ -47,11 +47,12 @@ inline bool starts_with(std::string to_find_in, std::string to_find) {
 }
 
 bool store_as_copy(string type) {
-    return type == "Token" || type == "std::any" || type == "std::string"||starts_with(type,"Lox::VecUniquePtr");
+    return type == "Token" || type == "std::any" || type == "std::string" || starts_with(type, "Lox::VecUniquePtr") ||
+           starts_with(type, "std::vector<Token>");
 }
 
 bool store_as_pointer(string type) {
-    return type=="Expr"||type=="Stmt";
+    return type == "Expr" || type == "Stmt";
 }
 
 
@@ -99,7 +100,7 @@ void define_type(ofstream &writer, string basename, string class_name, string fi
         stream >> type >> name;
         if (store_as_copy(type)) {
             writer << name << "(" << name << ")";
-        } else if(store_as_pointer(type)) {
+        } else if (store_as_pointer(type)) {
             writer << name << "(std::move(" << name << "))";
         }
         // std::cout<<name<<std::endl;
@@ -243,7 +244,8 @@ int main(int argc, char **argv) {
             "Var : Token name, Expr initializer",
             "If : Expr condition, Stmt then_branch, Stmt else_branch",
             "While : Expr condition, Stmt body",
-            "Break : std::string placeholder"
+            "Break : std::string placeholder",
+            "Function: Token name, std::vector<Token> params, Lox::VecUniquePtr<Stmt> body"
 
     }, {"#include \"Expr.hpp\"\n"});
 

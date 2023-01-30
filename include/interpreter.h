@@ -13,9 +13,9 @@ namespace Lox {
 //        Object value;
         void execute(Stmt *stmt);
 
-        Environment *global, *environment;
         Callable *global_clock;
     public:
+        Environment *global, *environment;
 #define RETURN(ret) Return(ret);return
 
         Interpreter();
@@ -37,6 +37,8 @@ namespace Lox {
         void visit(While *stmt);
 
         void visit(Logical *expr);
+
+        void visit(Function *stmt);
 
         void visit(If *stmt);
 
