@@ -13,6 +13,8 @@ target_sources(
         scanner.cpp
         utils.cpp
         Environment.cpp
+        parser.cpp
+        interpreter.cpp
 )
 add_executable(lox_repl)
 set_target_properties(lox_repl PROPERTIES OUTPUT_NAME "lox")

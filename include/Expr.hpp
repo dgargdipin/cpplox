@@ -2,7 +2,7 @@
 #include<any>
 #include<memory>
 #include "types.h"
-#include "scanner.h"
+#include "token.h"
 class Expr;
 class Binary;
 class Grouping;

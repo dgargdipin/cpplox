@@ -2,8 +2,8 @@
 
 #include <fstream>
 #include <string>
-#include "scanner.h"
 #include "RuntimeException.h"
+#include "token.h"
 
 std::string readTextFile(const std::string &path);
 

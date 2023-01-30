@@ -1,7 +1,8 @@
 #include <iostream>
 #include "lox.h"
 #include "logger.h"
-
+#include "token.h"
+#include "scanner.h"
 loglevel_e loglevel = logERROR;
 std::unordered_map<std::string, token_type> Scanner::keywords = {{"and",    AND},
                                                                  {"class",  CLASS},

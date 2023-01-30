@@ -8,8 +8,7 @@
 #include<unordered_map>
 #include<string>
 #include "types.h"
-#include "scanner.h"
-#include "RuntimeException.h"
+#include "token.h"
 #include <memory>
 
 namespace Lox {

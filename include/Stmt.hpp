@@ -2,7 +2,7 @@
 #include<any>
 #include<memory>
 #include "types.h"
-#include "scanner.h"
+#include "token.h"
 #include "Expr.hpp"
 class Stmt;
 class Expression;

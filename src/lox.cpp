@@ -3,9 +3,12 @@
 #include "lox.h"
 #include "utils.h"
 #include "parser.h"
+#include "token.h"
 #include <sysexits.h>
-// #include "astprinter.h"
 #include <interpreter.h>
+#include "scanner.h"
+#include "RuntimeException.h"
+
 #include<sstream>
 
 std::string readTextFile(const std::string &path) {

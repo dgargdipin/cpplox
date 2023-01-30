@@ -4,6 +4,8 @@
 
 #include "Environment.h"
 #include <iostream>
+#include "RuntimeException.h"
+#include "token.h"
 
 void Lox::Environment::define(std::string name, Object value) {
     values[name] = value;

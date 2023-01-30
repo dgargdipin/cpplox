@@ -4,73 +4,11 @@
 #include <vector>
 #include <variant>
 #include <unordered_map>
+#include "types.h"
+#include "token.h"
 
-enum token_type
-{
-    LEFT_PAREN,
-    RIGHT_PAREN,
-    LEFT_BRACE,
-    RIGHT_BRACE,
-    COMMA,
-    DOT,
-    MINUS,
-    PLUS,
-    SEMICOLON,
-    SLASH,
-    STAR,
-    QUESTION_MARK,
-    COLON,
-
-    // One or two character tokens.
-    BANG,
-    BANG_EQUAL,
-    EQUAL,
-    EQUAL_EQUAL,
-    GREATER,
-    GREATER_EQUAL,
-    LESS,
-    LESS_EQUAL,
-
-    // Literals.
-    IDENTIFIER,
-    STRING,
-    NUMBER,
-
-    // Keywords.
-    AND,
-    CLASS,
-    ELSE,
-    FALSE,
-    FUN,
-    FOR,
-    IF,
-    NIL,
-    OR,
-    PRINT,
-    RETURN,
-    SUPER,
-    THIS,
-    TRUE,
-    VAR,
-    WHILE,
-    T_BREAK,
-    T_EOF,
-
-};
 typedef std::variant<std::monostate, double, std::string> literal_type;
 literal_type get_empty_literal();
-class Token
-{
-public:
-    int line;
-    token_type type;
-
-    literal_type literal;
-    std::string lexeme;
-    Token(token_type type, std::string lexeme, literal_type literal, int line) : type(type), lexeme(lexeme),
-                                                                                 literal(literal), line(line){};
-    //    std::string toString();
-};
 
 class Scanner
 {

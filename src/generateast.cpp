@@ -197,7 +197,7 @@ void define_ast(string output_dir, string basename, vector<string> types, vector
     writer << "#include<any>\n";
     writer << "#include<memory>\n";
     writer << "#include \"types.h\"\n";
-    writer << "#include \"scanner.h\"\n";
+    writer << "#include \"token.h\"\n";
 
     //additional includes
     for (auto &stmt: additional_includes) {

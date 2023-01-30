@@ -13,7 +13,6 @@ if(BUILD_TESTING AND (PROJECT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR))
 endif()
 
 #add_executable(lox
-#        include/astprinter.h
 #        include/Expr.hpp
 #        include/interpreter.h
 #        include/logger.h

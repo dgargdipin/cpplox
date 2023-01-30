@@ -1,5 +1,6 @@
 #include<gtest/gtest.h>
 #include "scanner.h"
+#include "token.h"
 
 //
 // Created by Dipin Garg on 25-12-2022.

@@ -6,7 +6,7 @@
 #define LOX_RUNTIMEEXCEPTION_H
 
 #include <stdexcept>
-#include "scanner.h"
+#include "token.h"
 
 namespace Lox {
 
