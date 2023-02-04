@@ -7,7 +7,7 @@
 
 namespace Lox {
     Object LoxFunction::call(Interpreter &interpreter, std::vector<Object> arguments) {
-        Environment *env = new Environment(interpreter.global);
+        Environment *env = new Environment(closure);
         for (int i = 0; i < declaration->params.size(); i++) {
             env->define(declaration->params[i].lexeme, arguments[i]);
         }
@@ -15,15 +15,17 @@ namespace Lox {
             interpreter.execute_block(declaration->body, env);
         }
         catch (const ReturnException &e) {
-            delete env;
             return e.value;
         }
-        delete env;
         return {};//return nil
 
     }
 
     int LoxFunction::arity() {
         return declaration->params.size();
+    }
+
+    LoxFunction::LoxFunction(Function *ptr, Environment *closure) : declaration(ptr), closure(closure) {
+
     }
 } // Lox

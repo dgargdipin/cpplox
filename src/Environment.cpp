@@ -37,5 +37,5 @@ void Lox::Environment::assign(Token name, Object value) {
 }
 
 Lox::Environment::~Environment() {
-
+    if (enclosing)delete enclosing;
 }

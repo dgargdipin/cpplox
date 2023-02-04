@@ -11,8 +11,9 @@ namespace Lox {
 
     class LoxFunction : public Callable {
         Function* declaration;
+        Environment *closure;
     public:
-        LoxFunction(Function *ptr) : declaration(ptr) {};
+        LoxFunction(Function *ptr,Environment *closure);
 
         Object call(Interpreter &interpreter, std::vector<Object> arguments);
 

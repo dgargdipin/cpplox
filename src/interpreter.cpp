@@ -188,19 +188,7 @@ namespace Lox {
 
     void Interpreter::visit(Block *stmt) {
         Environment *env = new Environment(this->environment);
-        try {
-            execute_block(stmt->statements, env);
-        }
-        catch (const BreakException &e) {
-            delete env;
-            throw e;
-        }
-        catch (const ReturnException &e) {
-            delete env;
-            throw e;
-        }
-        delete env;
-
+        execute_block(stmt->statements, env);
     }
 
     void Interpreter::execute_block(VecUniquePtr<Stmt> &statements, Environment *env) {
@@ -386,8 +374,9 @@ namespace Lox {
     }
 
     void Interpreter::visit(Function *stmt) {
-        Callable *function = (Callable *) (new LoxFunction(stmt));
-        environment->define(stmt->name.lexeme, function);
+        LoxFunction *fn = new LoxFunction(stmt, environment);
+        Callable *callable_fn = (Callable *) fn;
+        environment->define(stmt->name.lexeme, callable_fn);
 
     }
 
