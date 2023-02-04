@@ -2,7 +2,7 @@
 
 #include <fstream>
 #include <string>
-#include "RuntimeException.h"
+#include "LoxExceptions.h"
 #include "token.h"
 
 std::string readTextFile(const std::string &path);

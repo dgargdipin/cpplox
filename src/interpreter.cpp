@@ -3,7 +3,7 @@
 //
 #include "interpreter.h"
 #include <string>
-#include "RuntimeException.h"
+#include "LoxExceptions.h"
 #include <stdexcept>
 #include "Stmt.hpp"
 #include <algorithm>
@@ -188,8 +188,19 @@ namespace Lox {
 
     void Interpreter::visit(Block *stmt) {
         Environment *env = new Environment(this->environment);
-        execute_block(stmt->statements, env);
+        try {
+            execute_block(stmt->statements, env);
+        }
+        catch (const BreakException &e) {
+            delete env;
+            throw e;
+        }
+        catch (const ReturnException &e) {
+            delete env;
+            throw e;
+        }
         delete env;
+
     }
 
     void Interpreter::execute_block(VecUniquePtr<Stmt> &statements, Environment *env) {
@@ -205,7 +216,11 @@ namespace Lox {
                 execute(stmt.get());
             }
         }
-        catch (BreakException &e) {
+        catch (const BreakException &e) {
+            this->environment = previous;
+            throw e;
+        }
+        catch (const ReturnException &e) {
             this->environment = previous;
             throw e;
         }
@@ -341,7 +356,7 @@ namespace Lox {
     }
 
     Interpreter::~Interpreter() {
-        delete environment;
+        delete global;
         delete global_clock;
     }
 
@@ -374,6 +389,12 @@ namespace Lox {
         Callable *function = (Callable *) (new LoxFunction(stmt));
         environment->define(stmt->name.lexeme, function);
 
+    }
+
+    void Interpreter::visit(class Return *stmt) {
+        Object value;
+        if (stmt->value)value = evaluate(stmt->value.get());
+        throw ReturnException(value);
     }
 
 }

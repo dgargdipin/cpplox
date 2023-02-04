@@ -245,6 +245,7 @@ int main(int argc, char **argv) {
             "If : Expr condition, Stmt then_branch, Stmt else_branch",
             "While : Expr condition, Stmt body",
             "Break : std::string placeholder",
+            "Return : Token keyword, Expr value",
             "Function: Token name, std::vector<Token> params, Lox::VecUniquePtr<Stmt> body"
 
     }, {"#include \"Expr.hpp\"\n"});

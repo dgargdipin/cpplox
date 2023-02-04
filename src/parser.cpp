@@ -273,6 +273,9 @@ unique_ptr<Stmt> Parser::statement() {
 
         return std::make_unique<Break>("placeholder");
     }
+    if (match({RETURN})) {
+        return return_statement();
+    }
     return expression_statement();
 }
 
@@ -469,11 +472,23 @@ unique_ptr<Stmt> Parser::function(std::string kind) {
             Token param = consume(IDENTIFIER, "Expect parameter name.");
             parameters.push_back(param);
         } while (match({COMMA}));
-        consume(RIGHT_PAREN, "Expect '(' after " + kind + " name.");
-        consume(LEFT_BRACE, "Expect '{' before " + kind + " body.");
-        auto body = block();
-        return std::make_unique<Function>(name, parameters, body);
+
     }
+    consume(RIGHT_PAREN, "Expect '(' after " + kind + " name.");
+    consume(LEFT_BRACE, "Expect '{' before " + kind + " body.");
+    auto body = block();
+    return std::make_unique<Function>(name, parameters, body);
+
+}
+
+unique_ptr<Return> Parser::return_statement() {
+    Token keyword = previous();
+    std::unique_ptr<Expr> value;
+    if (!check({SEMICOLON})) {
+        value = expression();
+    }
+    consume(SEMICOLON, "Expected ';' after return statement");
+    return std::make_unique<Return>(keyword, value);
 }
 
 

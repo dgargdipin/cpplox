@@ -13,6 +13,8 @@ namespace Lox {
 //        Object value;
         void execute(Stmt *stmt);
 
+        virtual void visit(Return *stmt);
+
         Callable *global_clock;
     public:
         Environment *global, *environment;

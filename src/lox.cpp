@@ -7,7 +7,7 @@
 #include <sysexits.h>
 #include <interpreter.h>
 #include "scanner.h"
-#include "RuntimeException.h"
+#include "LoxExceptions.h"
 
 #include<sstream>
 

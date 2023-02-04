@@ -3,6 +3,7 @@
 //
 
 #include "LoxFunction.h"
+#include "LoxExceptions.h"
 
 namespace Lox {
     Object LoxFunction::call(Interpreter &interpreter, std::vector<Object> arguments) {
@@ -10,8 +11,15 @@ namespace Lox {
         for (int i = 0; i < declaration->params.size(); i++) {
             env->define(declaration->params[i].lexeme, arguments[i]);
         }
-        interpreter.execute_block(declaration->body, env);
+        try {
+            interpreter.execute_block(declaration->body, env);
+        }
+        catch (const ReturnException &e) {
+            delete env;
+            return e.value;
+        }
         delete env;
+        return {};//return nil
 
     }
 

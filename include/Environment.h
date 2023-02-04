@@ -30,6 +30,7 @@ namespace Lox {
 
         Object get(Token name);
 
+        ~Environment();
 
     };
 

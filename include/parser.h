@@ -64,6 +64,8 @@ class Parser {
 
     unique_ptr<Stmt> statement();
 
+    unique_ptr<Return> return_statement();
+
     unique_ptr<If> if_statement();
 
     unique_ptr<While> while_statement();

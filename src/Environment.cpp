@@ -4,7 +4,7 @@
 
 #include "Environment.h"
 #include <iostream>
-#include "RuntimeException.h"
+#include "LoxExceptions.h"
 #include "token.h"
 
 void Lox::Environment::define(std::string name, Object value) {
@@ -34,4 +34,8 @@ void Lox::Environment::assign(Token name, Object value) {
     }
     if (enclosing)enclosing->assign(name, value);
     else throw RuntimeException(name, "Undefined variable " + name.lexeme + ".");
+}
+
+Lox::Environment::~Environment() {
+
 }

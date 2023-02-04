@@ -9,7 +9,7 @@ target_sources(
         lox
         PUBLIC
         lox.cpp
-        RuntimeException.cpp
+        LoxExceptions.cpp
         scanner.cpp
         utils.cpp
         Environment.cpp
