@@ -3,17 +3,8 @@
 #include<memory>
 #include "types.h"
 #include "token.h"
-#include "Expr.hpp"
-class Stmt;
-class Expression;
-class Print;
-class Block;
-class Var;
-class If;
-class While;
-class Break;
-class Return;
-class Function;
+#include "Expr.fwd.hpp"
+#include "Stmt.fwd.hpp"
 class StmtVisitor{
     public:
    virtual void visit(Expression *stmt)=0;
@@ -97,9 +88,8 @@ MAKE_VISITABLE_Stmt
 class Function: public Stmt{
    public:
    Token name;
-   std::vector<Token> params;
-   Lox::VecUniquePtr<Stmt> body;
+   std::unique_ptr<FunctionExpr > fn_expr;
    public:
- Function(Token name,std::vector<Token> params,Lox::VecUniquePtr<Stmt> body):name(name),params(params),body(body){};
+ Function(Token name,std::unique_ptr<FunctionExpr >& fn_expr):name(name),fn_expr(std::move(fn_expr)){};
 MAKE_VISITABLE_Stmt
 };

@@ -46,7 +46,11 @@ class Parser {
 
     unique_ptr<Expr> call();
 
-    unique_ptr<Stmt> function(std::string kind);
+    unique_ptr<Stmt> function_decl(std::string kind);
+
+    unique_ptr<FunctionExpr> function_body(std::string kind);
+
+    unique_ptr<Expr> function_expr_along_with_rest();
 
     unique_ptr<Expr> finish_call(unique_ptr<Expr>);
 
@@ -94,6 +98,8 @@ class Parser {
     void check_invalid_token(token_type token, Token previous, std::string error_message);
 
     bool check(token_type);
+
+    bool check_next(token_type t);
 
     bool isAtEnd();
 

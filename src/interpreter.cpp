@@ -374,10 +374,16 @@ namespace Lox {
     }
 
     void Interpreter::visit(Function *stmt) {
-        LoxFunction *fn = new LoxFunction(stmt, environment);
+        LoxFunction *fn = new LoxFunction(stmt->name, stmt->fn_expr.get(), environment);
         Callable *callable_fn = (Callable *) fn;
         environment->define(stmt->name.lexeme, callable_fn);
+    }
 
+
+    void Interpreter::visit(FunctionExpr *expr) {
+        LoxFunction *expr_value = new LoxFunction(expr, environment);
+        Callable *fn = (Callable *) expr_value;
+        RETURN(fn);
     }
 
     void Interpreter::visit(class Return *stmt) {

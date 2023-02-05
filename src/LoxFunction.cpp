@@ -8,11 +8,11 @@
 namespace Lox {
     Object LoxFunction::call(Interpreter &interpreter, std::vector<Object> arguments) {
         Environment *env = new Environment(closure);
-        for (int i = 0; i < declaration->params.size(); i++) {
-            env->define(declaration->params[i].lexeme, arguments[i]);
+        for (int i = 0; i < function_definition->params.size(); i++) {
+            env->define(function_definition->params[i].lexeme, arguments[i]);
         }
         try {
-            interpreter.execute_block(declaration->body, env);
+            interpreter.execute_block(function_definition->body, env);
         }
         catch (const ReturnException &e) {
             return e.value;
@@ -22,10 +22,16 @@ namespace Lox {
     }
 
     int LoxFunction::arity() {
-        return declaration->params.size();
+        return function_definition->params.size();
     }
 
-    LoxFunction::LoxFunction(Function *ptr, Environment *closure) : declaration(ptr), closure(closure) {
+    LoxFunction::LoxFunction(FunctionExpr *ptr, Environment *closure) : function_definition(
+            ptr),
+                                                                        closure(closure) {}
 
+    LoxFunction::LoxFunction(Token name_token, FunctionExpr *ptr, Environment *closure) : function_definition(
+            ptr),
+                                                                                          closure(closure),
+                                                                                          name(name_token) {
     }
 } // Lox

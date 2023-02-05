@@ -3,6 +3,7 @@
 
 #include "Environment.h"
 #include "Stmt.hpp"
+#include "Expr.hpp"
 #include "Callable.h"
 
 namespace Lox {
@@ -18,8 +19,6 @@ namespace Lox {
         Callable *global_clock;
     public:
         Environment *global, *environment;
-#define RETURN(ret) Return(ret);return
-
         Interpreter();
 
         ~Interpreter();
@@ -30,6 +29,8 @@ namespace Lox {
         Object get_expr_value();
 
         void Return(Object value_);
+
+#define RETURN(ret) Return(ret);return
 
 
         void interpret(VecUniquePtr<Stmt> &statements, bool print_expressions);
@@ -88,6 +89,8 @@ namespace Lox {
 
 
         bool same_type(Object &obj1, Object &obj2);
+
+        void visit(FunctionExpr *expr) override;
 
 
     };

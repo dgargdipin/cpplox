@@ -11,10 +11,10 @@ for (var i = 0; i < 20; i = i + 1) {
 
 fun makeCounter() {
   var i = 0;
-  fun count() {
+  var count=fun () {
     i = i + 1;
     print i;
-  }
+  };
 
   return count;
 }
@@ -22,3 +22,32 @@ fun makeCounter() {
 var counter = makeCounter();
 counter(); // "1".
 counter(); // "2".
+
+fun thrice(fn) {
+  for (var i = 1; i <= 3; i = i + 1) {
+    fn(i);
+  }
+}
+
+thrice(fun (a) {
+  print a;
+});
+
+
+fun whichFn(fn) {
+  print fn;
+}
+
+whichFn(fun (b) {
+ print b;
+});
+
+fun named(a) { print a; }
+whichFn(named);
+
+var abc=fun(cd){
+    print cd;
+};
+
+print abc;
+abc(1);

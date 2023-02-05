@@ -6,22 +6,27 @@
 #define LOX_LOXFUNCTION_H
 
 #include "Callable.h"
+#include <optional>
 
 namespace Lox {
 
     class LoxFunction : public Callable {
-        Function* declaration;
+        FunctionExpr* function_definition;
         Environment *closure;
+        std::optional<Token> name;
     public:
-        LoxFunction(Function *ptr,Environment *closure);
+        LoxFunction(FunctionExpr* ptr, Environment *closure);
+
+        LoxFunction(Token name,FunctionExpr* ptr, Environment *closure);
 
         Object call(Interpreter &interpreter, std::vector<Object> arguments);
 
         int arity();
 
-        std::string to_string(){
-            return "<fn " + declaration->name.lexeme + ">";
+        operator std::string() const {
+            return "<fn " + (name ? (name->lexeme) : "anonymous") + ">";
         }
+
     };
 
 } // Lox

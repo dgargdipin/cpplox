@@ -3,17 +3,8 @@
 #include<memory>
 #include "types.h"
 #include "token.h"
-class Expr;
-class Binary;
-class Grouping;
-class Ternary;
-class Literal;
-class Unary;
-class Nothing;
-class Variable;
-class Logical;
-class Assign;
-class Call;
+#include "Expr.fwd.hpp"
+#include "Stmt.fwd.hpp"
 class ExprVisitor{
     public:
    virtual void visit(Binary *expr)=0;
@@ -26,6 +17,7 @@ class ExprVisitor{
    virtual void visit(Logical *expr)=0;
    virtual void visit(Assign *expr)=0;
    virtual void visit(Call *expr)=0;
+   virtual void visit(FunctionExpr *expr)=0;
    virtual ~ExprVisitor()=default;
 };
 class Expr{
@@ -112,5 +104,13 @@ class Call: public Expr{
    Lox::VecUniquePtr<Expr> arguments;
    public:
  Call(std::unique_ptr<Expr >& callee,Token paren,Lox::VecUniquePtr<Expr> arguments):callee(std::move(callee)),paren(paren),arguments(arguments){};
+MAKE_VISITABLE_Expr
+};
+class FunctionExpr: public Expr{
+   public:
+   std::vector<Token> params;
+   Lox::VecUniquePtr<Stmt> body;
+   public:
+ FunctionExpr(std::vector<Token> params,Lox::VecUniquePtr<Stmt> body):params(params),body(body){};
 MAKE_VISITABLE_Expr
 };

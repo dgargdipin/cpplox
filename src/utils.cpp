@@ -1,5 +1,7 @@
 #include "utils.h"
 #include "types.h"
+#include "Callable.h"
+#include "LoxFunction.h"
 
 namespace Lox {
     void error(std::string s1, std::string s2) {
@@ -25,7 +27,13 @@ namespace Lox {
             return std::any_cast<std::string>(obj);
         }
         //TODO error handling when getting string repr of object
+        if (lox_object_type<Callable *>(obj)) {
+            Callable *ptr = std::any_cast<Callable *>(obj);
+            if (instanceof<LoxFunction>(ptr)) {
+                return ((LoxFunction *) ptr)->operator std::string();
+            };
 
+        }
         throw std::runtime_error("Unable to cast lox object to string repr\n");
     }
 

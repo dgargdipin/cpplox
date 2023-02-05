@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "token.h"
 #include "Stmt.hpp"
+#include "Expr.hpp"
 #include "utils.h"
 #include "scanner.h"
 #include "lox.h"
@@ -139,6 +140,9 @@ unique_ptr<Expr> Parser::primary() {
         auto expr = expression();
         consume(RIGHT_PAREN, "Expect ')' after expression");
         return std::make_unique<Grouping>(expr);
+    }
+    if (match({FUN})) {
+        return function_body("anonymous fn");
     }
     if (match({IDENTIFIER})) {
         return std::make_unique<Variable>(previous());
@@ -296,9 +300,11 @@ unique_ptr<Stmt> Parser::declaration() {
         if (match({VAR})) {
             return var_declaration();
         }
-        if (match({FUN})) {
-            return function("function");
+        if (check(FUN) && check_next(IDENTIFIER)) {
+            consume(FUN, "");
+            return function_decl("Function declaration");
         }
+
         return statement();
     }
     catch (ParseError &e) {
@@ -460,8 +466,26 @@ unique_ptr<Expr> Parser::finish_call(std::unique_ptr<Expr> callee) {
 
 }
 
-unique_ptr<Stmt> Parser::function(std::string kind) {
+unique_ptr<Stmt> Parser::function_decl(std::string kind) {
+
     Token name = consume(IDENTIFIER, "Expect " + kind + " name.");
+    auto fn_expr = function_body(kind);
+    return std::make_unique<Function>(name, fn_expr);
+
+}
+
+unique_ptr<Return> Parser::return_statement() {
+    Token keyword = previous();
+    std::unique_ptr<Expr> value;
+    if (!check({SEMICOLON})) {
+        value = expression();
+    }
+    consume(SEMICOLON, "Expected ';' after return statement");
+    return std::make_unique<Return>(keyword, value);
+}
+
+
+unique_ptr<FunctionExpr> Parser::function_body(std::string kind) {
     consume(LEFT_PAREN, "Expect '(' after " + kind + " name.");
     std::vector<Token> parameters;
     if (!check(RIGHT_PAREN)) {
@@ -477,19 +501,15 @@ unique_ptr<Stmt> Parser::function(std::string kind) {
     consume(RIGHT_PAREN, "Expect '(' after " + kind + " name.");
     consume(LEFT_BRACE, "Expect '{' before " + kind + " body.");
     auto body = block();
-    return std::make_unique<Function>(name, parameters, body);
-
+    return std::make_unique<FunctionExpr>(parameters, body);
 }
 
-unique_ptr<Return> Parser::return_statement() {
-    Token keyword = previous();
-    std::unique_ptr<Expr> value;
-    if (!check({SEMICOLON})) {
-        value = expression();
-    }
-    consume(SEMICOLON, "Expected ';' after return statement");
-    return std::make_unique<Return>(keyword, value);
+bool Parser::check_next(token_type t) {
+    if (isAtEnd())return false;
+    if (tokens.at(current + 1).type == T_EOF)return false;
+    return tokens.at(current + 1).type == t;
 }
+
 
 
 

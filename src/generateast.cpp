@@ -52,7 +52,7 @@ bool store_as_copy(string type) {
 }
 
 bool store_as_pointer(string type) {
-    return type == "Expr" || type == "Stmt";
+    return type == "Expr" || type == "Stmt"||type=="FunctionExpr";
 }
 
 
@@ -154,6 +154,8 @@ void define_baseclass(ofstream &writer, string base_name) {
 
 void forward_decl_classes(ofstream &writer, string base_name, vector<string> types) {
 //    writer << "template <typename T>\n";
+
+    writer << "#pragma once\n";
     writer << "class " << base_name << ";\n";
     for (auto type: types) {
         std::istringstream ss(type);
@@ -205,8 +207,9 @@ void define_ast(string output_dir, string basename, vector<string> types, vector
         writer << stmt;
     }
 
-
-    forward_decl_classes(writer, basename, types);
+    string forward_decl_path = output_dir + '/' + basename + ".fwd.hpp";
+    ofstream writer_forward_decl(forward_decl_path);
+    forward_decl_classes(writer_forward_decl, basename, types);
     define_visitor(writer, basename, types);
     define_baseclass(writer, basename);
 
@@ -235,8 +238,9 @@ int main(int argc, char **argv) {
                                     "Variable: Token name",
                                     "Logical: Expr left, Token oper, Expr right",
                                     "Assign: Token name, Expr value",
-                                    "Call: Expr callee, Token paren, Lox::VecUniquePtr<Expr> arguments"
-    });
+                                    "Call: Expr callee, Token paren, Lox::VecUniquePtr<Expr> arguments",
+                                    "FunctionExpr: std::vector<Token> params, Lox::VecUniquePtr<Stmt> body"
+    }, {"#include \"Expr.fwd.hpp\"\n", "#include \"Stmt.fwd.hpp\"\n"});
     define_ast(output_dir, "Stmt", {
             "Expression : Expr expression",
             "Print      : Expr expression",
@@ -246,8 +250,8 @@ int main(int argc, char **argv) {
             "While : Expr condition, Stmt body",
             "Break : std::string placeholder",
             "Return : Token keyword, Expr value",
-            "Function: Token name, std::vector<Token> params, Lox::VecUniquePtr<Stmt> body"
+            "Function: Token name, FunctionExpr fn_expr"
 
-    }, {"#include \"Expr.hpp\"\n"});
+    }, {"#include \"Expr.fwd.hpp\"\n", "#include \"Stmt.fwd.hpp\"\n"});
 
 }
